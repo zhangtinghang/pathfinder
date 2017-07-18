@@ -1,0 +1,15 @@
+{
+  "index.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ],
+    "refer": []
+  },
+  "pages/main.html": {
+    "resources": [
+      "js/zoom/flexible.js",
+      "css/mui.min.css"
+    ]
+  }
+}

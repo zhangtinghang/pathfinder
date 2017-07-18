@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<title>列表页</title>
+	</head>
+	<body>
+			<script type="text/javascript">
+				// H5 plus事件处理
+				function plusReady(){
+					console.log( "Screen height: " + plus.screen.resolutionHeight*plus.screen.scale + "px" );
+					console.log( "Screen resolution: " + plus.screen.resolutionWidth*plus.screen.scale + " x " + plus.screen.resolutionHeight*plus.screen.scale );
+					console.log( "物理: " + plus.screen.resolutionWidth + " x " + plus.screen.resolutionHeight);
+					console.log( "放大比例系数: " + plus.screen.scale);
+				}
+				if(window.plus){
+					plusReady();
+				}else{
+					document.addEventListener("plusready",plusReady,false);
+				}
+	</script>
+	</body>
+</html>
