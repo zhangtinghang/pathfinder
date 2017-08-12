@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+			.body_bg{
+				background-image: url(../image/personal/other-bg.png);
+			}
+			.icon_box{
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+			}
+			.avatar_box{
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+				position: absolute;
+				width: 100%;
+				top: 40%;
+				left: 0;
+				margin-top:-1.388888rem;
+			}
+			.icon_left{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 1.527777rem;
+				height: 1.527777rem;
+				border-radius: 45px;
+				background-color: rgba(255,255,255,0.05);
+			}
+			.icon_left img{
+				width: 0.972222rem;
+				height: 0.930555rem;
+			}
+			.icon_right{
+				display: flex;
+				width: 1.527777rem;
+				height: 1.527777rem;
+				border-radius: 45px;
+				background-color: rgba(255,255,255,0.05);
+				justify-content: center;
+				align-items: center;
+			}
+			.icon_right img{
+				width: 1.027777rem;
+				left: 1.027777rem;
+			}
+			.content_avatar{
+				height:2.777777rem;
+				width:2.777777rem;	
+			}
+			.content_avatar img{
+				width: 100%;
+				height: 100%;
+			}
+			.header_title{
+				font-size: 0.5rem;
+				color: rgba(255,255,255,1);
+				margin-top: 0.555555rem;
+			}
+			.content_body{
+				font-size: 0.5rem;
+				color: rgba(255,255,255,1);
+				margin-top: 1.25rem;
+			}
+		</style>
+	</head>
+
+	<body class="body_bg">
+		<header class="headerNav" id="header">
+			<img src="../image/return.png" />
+		</header>
+		<div class="content">
+			<div class="avatar_box">
+				<div class="icon_box">
+					<div class="icon_left">
+						<img src="../image/personal/icon-chat.png" />
+					</div>
+					<div class="content_avatar">
+						<img align="center" src="../image/personal/set-head.png" />	
+					</div>
+					<div class="icon_right">
+						<img src="../image/personal/icon-star.png" />
+					</div>
+				</div>
+				
+				<div class="header_title">vecellio</div>
+				<div class="content_body">谭中鱼可百许头，可清真，可红烧。。。</div>
+			</div>		
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

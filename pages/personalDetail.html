@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+			.headRight{
+				width: 2.055555rem;
+				height: 0.97777rem;
+				color: rgba(255,255,255,1);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 0.5rem;
+			}
+			
+			.avatar_box{
+				align-items: center;
+				justify-content: center;
+				text-align: center;
+			}
+			.content_avatar{
+				height:2.777777rem;
+				width:2.777777rem;				
+				margin: 0.577777rem auto;
+				margin-top: 0.977777rem;
+			}
+			.content_avatar img{
+				width: 100%;
+				height: 100%;
+			}
+			.header_title{
+				font-size: 0.5rem;
+				color: rgba(255,255,255,1);
+			}
+			.nickname{
+				color: rgba(255,255,255,0.25);
+				font-size: 0.5rem;
+				margin-left: 15%;
+				padding: 10px 0;
+			}
+			.input{
+				margin-bottom: 1.047222rem !important;
+				width: 80% !important;
+				margin-left:10%;
+				border-radius:10px !important;
+				background-color: rgba(255,255,255,0.06) !important;
+				color: rgba(255,255,255,1);
+				font-size: 0.5rem;
+			}
+		</style>
+	</head>
+
+	<body class="body_bg">
+		<header class="headerNav" id="header">
+			<img src="../image/return.png" />
+			<div class="headerTitle">确认身份</div>
+			<div class="headRight">确定</div>
+		</header>
+		<div class="content">
+			<div class="avatar_box">
+				<div class="content_avatar">
+					<img src="../image/personal/set-head.png" />	
+				</div>
+			</div>
+			<div class="content_body">
+				<div class="nickname">昵称</div>
+				<input class="input nicknameInput" type="text" value="vecellio" />
+				<div class="nickname">用一句话介绍自己：</div>
+				<textarea class="input bodyInput">潭中鱼可百许头，可清真，可红烧，可烧烤。。。</textarea>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

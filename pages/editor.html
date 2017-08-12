@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+			.headRight{
+				width: 1.5rem;
+				height: 1.152777rem;		
+			}
+			.content_bg{
+				width: 100%;
+				height: 6.527777rem;
+				background-color: #797979;
+				position: relative;
+			}
+			.content_bg img{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.content_box{
+				width: 90%;
+				margin: 0 auto;
+				background-color: rgba(255,255,255,1);
+				position: relative;
+				top: -70px;
+				border-radius:5px;
+				
+			}
+			.content_title{
+				font-size: 0.527777rem;
+				color: rgba(0,0,0,1);
+				padding: 0.277777rem 2%;
+				line-height: 40px;
+				border-bottom: 1px solid rgba(220,220,220,.5);
+				text-align: center;
+				
+			}
+			.content_body{
+				font-size: 0.444444rem;
+				color: rgba(51,51,51,1);
+				padding-top:0.277777rem;
+				height: 100%;
+				text-align: center;
+			}
+			
+			.content_avatar{
+				width: 1.069444rem;
+				height: 1.069444rem;
+				position: absolute;
+				left:50%;
+				top: 20%;
+				margin-left:-0.527777rem;
+			}
+			.content_center{
+				top: 45%;
+				position: absolute;
+				display: flex;
+				width: 100%;
+				justify-content: space-around;
+				align-items: center;
+			}
+			.content_center img{
+				width: 0.625rem;
+				height: 0.875rem;
+				z-index: 999;
+			}
+			.content_center_text{
+				font-size: 0.388888rem;
+				color: rgba(255,255,255,1);
+			}
+		</style>
+	</head>
+
+	<body class="body_bg">
+		<header class="headerNav" id="header">
+			<img src="../image/return.png" />
+			<img class="headRight" src="../image/editor/send.png" />
+		</header>
+		<div class="content">
+			<!--轮播图-->
+			<div class="content_bg">
+				<div class="content_avatar">
+					<img src="../image/editor/icon-img.png" />
+				</div>
+				<div class="content_center">
+					<img src="../image/editor/button-left.png" />
+					<div class="content_center_text">插入封面图片引起围观</div>
+					<img src="../image/editor/button-right.png" />
+				</div>
+			</div>
+			<div class="content_box" id="content_box">
+				<h3 class="content_title">添加标题</h3>
+				<p class="content_body">添加正文</p>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var top = document.getElementById("content_box").offsetTop.innerHeight;
+			var Height = document.body.clientHeight;
+			var Hdiv = Height - top;
+			console.log(Height,top)
+		</script>
+	</body>
+
+</html>

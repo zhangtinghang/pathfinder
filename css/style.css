@@ -20,6 +20,7 @@ ul,li{
 	display: flex;
 	align-items: center;
 	padding-top: 0.694444rem;
+	position: relative;
 }
 
 .headerNav img{
@@ -35,3 +36,8 @@ ul,li{
 	margin: 0 auto;
 	font-size: 0.5rem;
 }
+.headRight{
+		position: absolute;
+		right: 5%;
+		bottom: 1px;
+	}
