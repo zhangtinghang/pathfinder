@@ -10,7 +10,7 @@
 	"icons": {
 		"72": "icon.png"
 	},
-	"launch_path": "pages/main.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"launch_path": "pages/index.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
 	"developer": {
 		"name": "",/*开发者名称*/
 		"email": "",/*开发者邮箱地址*/
@@ -101,7 +101,7 @@
         },
         "NativeObj":{
         	"description": "原生对象"
-        }
+        },"OAuth":{}
 	},
 	"plus": {
 		"splashscreen": {
@@ -110,7 +110,7 @@
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
-		"distribute": {
+		"distribute": {"plugins":{"oauth":{"qq":{"appid":"1106281467"}}},
 			"apple": {
 				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
 				"mobileprovision": "",/*iOS应用打包配置文件*/
@@ -203,7 +203,170 @@
 			"pages/main.html": {
 				"resources": [
 					"js/zoom/flexible.js",
+					"css/mui.min.css",
+					"js/mui.min.js",
+					"css/style.css",
+					"js/jquery-1.11.0.min.js",
+					"image/main/write.png",
+					"image/return.png",
+					"image/main/2.jpg",
+					"login/JS/app.js",
+					"image/main/0.jpg",
+					"js/ajax.js",
+					"js/move.js"
+				],
+				"refer": [
+					"pages/cardDetail.html"
+				],
+				"priority": 0
+			},
+			"pages/index.html": {
+				"resources": [
+					"image/index/main-btn-quiz.png",
+					"js/zoom/flexible.js",
+					"js/mui.min.js",
+					"image/index/main-btn-date.png",
+					"image/index/main-btn-chat.png",
+					"image/index/main-btn-topic.png",
+					"image/index/main-btn-set.png",
+					"css/mui.min.css",
+					"css/style.css"
+				],
+				"refer": [
+					"pages/main.html",
+					"pages/personal.html",
+					"pages/editor.html"
+				],
+				"priority": 0
+			},
+			"pages/cardDetail.html": {
+				"resources": [
+					"image/cardDetail/content-button.png"
+				],
+				"refer": [
+					"pages/comment.html"
+				],
+				"priority": 0
+			},
+			"pages/comment.html": {
+				"resources": [
+					"js/self-adaption-text.js",
+					"css/mui.min.css",
+					"js/ajax.config.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/personal.html": {
+				"resources": [
+					"image/personal/set-icon-star.png",
+					"image/personal/set-bg.png",
+					"image/personal/set-icon-robot.png",
+					"image/personal/set-icon-comment.png",
+					"image/personal/set-icon-honor.png",
+					"image/personal/set-icon-message.png",
+					"image/personal/set-icon-exit.png",
+					"image/personal/set-icon-sign.png",
+					"image/personal/set-icon-content.png",
+					"js/arttmpl.js"
+				],
+				"refer": [
+					"pages/signIn.html",
+					"pages/lookStar.html",
+					"pages/myMessage.html",
+					"pages/robot.html",
+					"pages/mycontent.html",
+					"pages/commentChild.html",
+					"login/login_main.html",
+					"pages/myAchievement.html"
+				],
+				"priority": 0
+			},
+			"pages/signIn.html": {
+				"resources": [
+					"image/signIn/icon-sign.png",
+					"image/signIn/star3.png",
+					"image/signIn/star1.png",
+					"image/signIn/star2.png",
+					"image/signIn/5.png",
+					"image/signIn/sign.png",
+					"image/signIn/star4.png",
+					"image/signIn/sign-0.png",
+					"image/signIn/1.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/lookStar.html": {
+				"resources": [
+					"image/lookStar/star-button.png",
+					"image/lookStar/star-icon.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/myMessage.html": {
+				"resources": [
 					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/robot.html": {
+				"resources": [
+					"image/robot/add.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/commentChild.html": {
+				"resources": [
+					"fonts/black.ttf",
+					"fonts/stylesheet.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"login/login_main.html": {
+				"resources": [
+					"login/login_css/main.css",
+					"image/login/weibo.png",
+					"image/login/wechat.png",
+					"image/login/qq.png"
+				],
+				"refer": [
+					"login/login.html"
+				],
+				"priority": 0
+			},
+			"login/login.html": {
+				"resources": [
+					"js/md5.min.js",
+					"login/login_css/login_style.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/myAchievement.html": {
+				"resources": [
+					"image/myAchievement/small.png",
+					"image/myAchievement/big.png",
+					"image/myAchievement/bg.png",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"pages/editor.html": {
+				"resources": [
+					"js/common.js",
+					"image/editor/send.png",
+					"css/mui.min.css",
+					"image/main/1.jpg",
+					"image/main/4.jpg",
+					"image/editor/icon-img.png",
+					"image/editor/button-right.png",
+					"image/editor/button-left.png"
 				],
 				"refer": [],
 				"priority": 0
@@ -215,5 +378,5 @@
 				"css/animate.css"
 			]
 		}
-	}
+	},"fullscreen":true
 }

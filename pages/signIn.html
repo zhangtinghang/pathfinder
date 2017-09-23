@@ -11,20 +11,416 @@
 		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
 		<link rel="stylesheet" href="../css/style.css" />
 		<style>
-			
+			.signIn{
+				position: relative;
+				height: 5.833333rem;
+				width: 100%;
+				z-index: 99;
+			}
+			.radius{
+				position: absolute;
+				opacity: 0;
+				z-index: 99;
+			}
+			.radius img{
+				width: 100%;
+				height: 100%;
+			}
+			.radius1{
+				height: 1.958333rem;
+				width: 1.958333rem;
+				top: 50%;
+				margin-top: -0.979166rem;
+				left: 50%;
+				margin-left: -0.979166rem;
+				opacity: 1;
+				z-index: 99;
+				display: block;
+			}
+			.radius4{
+				height: 5.041666rem;
+				width: 5.041666rem;
+				top: 50%;
+				margin-top: -2.520833rem;
+				left: 50%;
+				margin-left: -2.520833rem;
+			}
+			.radius5{
+				height: 5.833333rem;
+				width:  5.833333rem;
+				left: 50%;
+				margin-left: -2.916666rem;
+			}
+			.animated{
+				animation:mydialog 3s;
+				-webkit-animation:mydialog 3s;  /*Safari 和 Chrome */
+				transform:scale(0.8);
+				-webkit-transform: scale(0.8);
+				animation-fill-mode:forwards;
+				-webkit-animation-fill-mode: forwards;
+			}
+			@keyframes mydialog{
+				0%{
+					opacity: 0;
+					transform:scale(0.8);
+					
+				}
+				100%{
+					opacity: 1;
+					transform:scale(1);
+					
+				}
+			}		
+			@-webkit-keyframes mydialog{
+				0%{
+					opacity: 0;
+					-webkit-transform: scale(0.8);
+				}
+				100%{
+					opacity: 1;
+					-webkit-transform: scale(1);
+				}
+			}
+		.signbody{
+			position: relative;
+			z-index: 9;
+		}
+		
+		/*主体部分*/
+		.signbox{
+			width: 7.722222rem;
+			height: 6.944444rem;
+			position: absolute;
+			z-index: 9;
+			top: 50%;
+			left: 50%;
+			margin-left: -3.861111rem;
+			transform:translateY(-2.186666rem);
+			-webkit-transform: translateY(-2.186666rem);
+				
+		}
+		.signboxAnimate{
+			animation:mydialog2 3s;
+			-webkit-animation:mydialog2 3s;  /*Safari 和 Chrome */
+			animation-fill-mode:forwards;
+			-webkit-animation-fill-mode: forwards;	
+		}
+		.signbox img{
+			width: 100%;
+			height: 100%;
+		}
+		@keyframes mydialog2{
+				0%{
+					transform:translateY(-2.186666rem);
+			-webkit-transform: translateY(-2.186666rem);
+				}
+				100%{
+					transform:translateY(-0.656666rem);
+			-webkit-transform: translateY(-0.656666rem);
+				}
+			}		
+			@-webkit-keyframes mydialog2{
+				0%{
+					transform:translateY(-2.186666rem);
+			-webkit-transform: translateY(-2.186666rem);
+				}
+				100%{
+					transform:translateY(-0.656666rem);
+			-webkit-transform: translateY(-0.656666rem);
+				}
+			}	
+		/*字体等效果*/
+		.bodyTitle{
+			width: 3.027777rem;
+			height: 0.805555rem;
+			position: absolute;
+			left: 50%;
+			margin-left: -1.513888rem;
+			top: 33%;
+		}
+		.bodyTitle img{
+			width: 100%;
+			height: 100%;
+		}
+		/*文字动画*/
+		.body_content{
+			width: 6.222222rem;
+			position: absolute;
+			left: 50%;
+			margin-left: -3.027777rem;
+			bottom: 12%;
+			font-size: 0.416666rem;
+			color: rgba(255,255,255,0.5);
+			text-align: center;
+			line-height: 0.777777rem;
+		}
+		.body_content0{
+			opacity: 1;
+		}
+		.body_content1{
+			opacity: 0;
+		}
+		.body_content0Animation{
+			animation-name: content0;
+			-webkit-animation-name: content0;
+			animation-duration:1.5s;
+			-webkit-animation-duration:1.5s;
+			animation-timing-function:linear;
+			-webkit-animation-timing-function:linear;
+			animation-fill-mode:forwards;
+			-webkit-animation-fill-mode:forwards;
+		}
+		@keyframes content0{
+				0%{
+					
+					opacity: 1;
+				}
+				100%{
+					opacity: 0;
+				}
+			}		
+		@-webkit-keyframes content0{
+			0%{
+				opacity: 1;
+			}
+			100%{
+				opacity: 0;
+			}
+		}
+		
+		.body_content1Animation{
+			animation-name: content1;
+			-webkit-animation-name: content1;
+			animation-duration:1.5s;
+			-webkit-animation-duration:1.5s;
+			animation-delay: 1.5s;
+			-webkit-animation-delay: 1.5s;
+			animation-timing-function:linear;
+			-webkit-animation-timing-function:linear;
+			animation-fill-mode:forwards;
+			-webkit-animation-fill-mode:forwards;
+		}
+		@keyframes content1{
+				0%{
+					opacity: 0;
+				}
+				100%{
+					opacity: 1;
+				}
+			}		
+		@-webkit-keyframes content1{
+			0%{
+				opacity: 0;
+			}
+			100%{
+				opacity: 1;
+			}
+		}
+		/*星星动画*/
+		.star{
+			opacity: 0;
+		}
+		.starAnimation{
+			/*星星出现*/
+			animation-name: shows;
+			-webkit-animation-name: shows;
+			animation-duration:2s;
+			-webkit-animation-duration:2s;
+			animation-timing-function:linear;
+			-webkit-animation-timing-function:linear;			
+		}
+		.starAnimation1{
+			animation-name: star;
+			-webkit-animation-name: star;
+			animation-duration:1s;
+			-webkit-animation-duration:1s;
+			animation-timing-function:linear;
+			-webkit-animation-timing-function:linear;
+			animation-direction:alternate;
+			-webkit-animation-direction:alternate;
+			animation-iteration-count:infinite;
+			-webkit-animation-iteration-count:infinite;
+		}
+		@keyframes shows{
+				0%{
+					transform:scale(1);
+					opacity: 0;
+				}
+				100%{
+					transform:scale(0.8);
+					opacity: 0.7;
+				}
+			}		
+		@-webkit-keyframes shows{
+			0%{
+				-webkit-transform:scale(1);
+				opacity: 0;
+			}
+			100%{
+				-webkit-transform:scale(0.8);
+				opacity: 0.7;
+			}
+		}
+		@keyframes star{
+				0%{
+					transform:scale(0.8);
+					opacity: 0.7;
+				}
+				100%{
+					transform: rotate(1.2);
+					opacity: 1;
+				}
+			}		
+			@-webkit-keyframes star{
+				0%{
+					-webkit-transform: rotate(0.8);
+					opacity: 0.7;
+				}
+				100%{
+					-webkit-transform: rotate(1.2);
+					opacity: 1;
+				}
+			}
+		.star img{
+			width:100%;
+			height: 100%;
+		}
+		.star1{
+			width: 1.208333rem;
+			height: 1.152777rem;
+			position:absolute;
+			top: 10%;
+			left: 20%;
+		}
+		.star2{
+			width: 0.694444rem;
+			height: 0.666666rem;
+			position:absolute;
+			top: 35%;
+			left: 15%;
+		}
+		.star3{
+			width: 0.694444rem;
+			height: 0.722222rem;
+			position:absolute;
+			top: 20%;
+			right: 20%;
+		}
+		.star4{
+			width: 0.555555rem;
+			height: 0.541666rem;
+			position:absolute;
+			top: 39%;
+			right: 15%;
+		}
+		#signBtn{
+			z-index: 999;/*需要点击的层级最高*/
+		}
 		</style>
 	</head>
 
 	<body class="body_bg">
 		<header class="headerNav" id="header">
-			<img src="../image/return.png" />
+			<img class="mui-action-back" src="../image/return.png" />
 		</header>
 		<div class="content">
-			
+			<div class="signIn">
+				<div id="signBtn" class="radius radius1"><img src="../image/signIn/1.png"/></div>
+				<div class="radius radius4 circle"><img src="../image/signIn/sign.png"/></div>
+				<div class="radius radius5 circle"><img src="../image/signIn/5.png"/></div>
+			</div>
+			<div class="signbody">
+				<div class="signbox" id="signbox">
+					<img src="../image/signIn/icon-sign.png" />
+					<div id="bodyTitle" class="bodyTitle"><img id="titleImg" src="../image/signIn/sign-0.png" /></div>
+					<div class="body_content body_content0">亲，欢迎您<br />签到可获得星币哟</div>
+					<div class="body_content body_content1">你已经成功签到<br/>继续探索太空去吧</div>
+					<div class="star star1"><img src="../image/signIn/star1.png" /></div>
+					<div class="star star2"><img src="../image/signIn/star2.png" /></div>
+					<div class="star star3"><img src="../image/signIn/star3.png" /></div>
+					<div class="star star4"><img src="../image/signIn/star4.png" /></div>
+				</div>
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../login/JS/app.js" ></script>
+		<script type="text/javascript" src="../js/ajax.config.js" ></script>
 		<script type="text/javascript">
 			mui.init();
+			mui.plusReady(function () {
+				var btn = document.getElementById("signBtn");
+				var state = app.getState();
+				//更新并读取本地配置
+				if(!state || !state.token || !state.user){
+					return plus.nativeUI.toast('请先登录！')
+				}
+				UpdataUser(state,function(data){
+					if(data.succsess == true){
+						if(data.user.is_checkin === true) {
+							moveAnimation();
+						}
+					}else{
+						if(state.user.is_checkin === true) {
+							moveAnimation();
+						}
+					}
+					
+				})
+				btn.addEventListener('tap',function(){
+					if(state.user.is_checkin == true){
+						return plus.nativeUI.toast('今日已完成签到！');
+					}else if(!state || !state.token || !state.user){
+						return plus.nativeUI.toast('请先登录！');
+					}
+					var ajaxData = {
+								url: 'user/checkin',
+								data: {
+									token: state.token
+								},
+								type: 'post'
+							}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+					if(data.success === true){
+						moveAnimation();
+						state.user.is_checkin = true;
+						app.setState(state);
+					}else{
+						plus.nativeUI.toast('签到失败！')
+					}
+				});						
+			})			    
+		})
+		
+		function moveAnimation(){
+			//波纹扩散
+			var circle = document.querySelectorAll(".circle");
+			for (var i = 0; i < circle.length; i++) {
+				circle[i].classList.add('animated');
+			}
+			//整体下移
+			var box = document.getElementById("signbox");
+			box.classList.add('signboxAnimate');
+
+			//星星出现
+			var star = document.getElementsByClassName('star');
+			for(var i=0;i<star.length;i++){
+				star[i].classList.add('starAnimation');
+			}
+			//中间文字修改
+			setTimeout(function(){
+				document.getElementById("titleImg").src = '../image/signIn/sign-1.png';
+			},1500);
+			setTimeout(function(){
+				for(var i=0;i<star.length;i++){
+					star[i].classList.add('starAnimation1');
+				}
+			},2000)
+			//文字内容更换
+			document.getElementsByClassName('body_content')[0].classList.add('body_content0Animation');
+			document.getElementsByClassName('body_content')[1].classList.add('body_content1Animation');		
+		}			
 		</script>
 	</body>
 

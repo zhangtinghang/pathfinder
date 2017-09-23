@@ -9,8 +9,12 @@
 		<meta content="telephone=no,email=no" name="format-detection">
 		<link rel="stylesheet" href="../css/mui.min.css" />
 		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<script type="text/javascript" src="../js/common.js"></script>
 		<link rel="stylesheet" href="../css/style.css" />
 		<style>
+			.content{
+				width: 100%;
+			}
 			.headRight{
 				width: 1.5rem;
 				height: 1.152777rem;		
@@ -20,6 +24,10 @@
 				height: 6.527777rem;
 				background-color: #797979;
 				position: relative;
+				z-index: 1;
+			}
+			.mui-slider{
+				height: 6.527777rem;
 			}
 			.content_bg img{
 				width: 100%;
@@ -33,6 +41,7 @@
 				position: relative;
 				top: -70px;
 				border-radius:5px;
+				z-index: 2;
 				
 			}
 			.content_title{
@@ -42,13 +51,13 @@
 				line-height: 40px;
 				border-bottom: 1px solid rgba(220,220,220,.5);
 				text-align: center;
-				
+				margin: 0;
 			}
 			.content_body{
 				font-size: 0.444444rem;
 				color: rgba(51,51,51,1);
 				padding-top:0.277777rem;
-				height: 100%;
+				margin: 0;
 				text-align: center;
 			}
 			
@@ -59,6 +68,7 @@
 				left:50%;
 				top: 20%;
 				margin-left:-0.527777rem;
+				z-index: 9;
 			}
 			.content_center{
 				top: 45%;
@@ -67,48 +77,317 @@
 				width: 100%;
 				justify-content: space-around;
 				align-items: center;
+				z-index: 9;
 			}
 			.content_center img{
+				display: block;
 				width: 0.625rem;
 				height: 0.875rem;
-				z-index: 999;
 			}
 			.content_center_text{
 				font-size: 0.388888rem;
 				color: rgba(255,255,255,1);
+			}
+			#titleInput{
+				text-align: center;
+				display: none;
+				border: none;
+				margin: 0;
+			}
+			#content_body_text{
+				height: 100%;
+				margin: 0;
+				padding:0 15px;
+				display: none;
+				border: none;
+			}
+			#slider-item-network{
+				overflow: hidden;
+				width: 100%;
+				height: 100%;
 			}
 		</style>
 	</head>
 
 	<body class="body_bg">
 		<header class="headerNav" id="header">
-			<img src="../image/return.png" />
-			<img class="headRight" src="../image/editor/send.png" />
+			<img class="mui-action-back" src="../image/return.png" />
+			<img id="sendBtn" class="headRight" src="../image/editor/send.png" />
 		</header>
-		<div class="content">
+		<div class="content" id="content">
 			<!--轮播图-->
-			<div class="content_bg">
+			<div class="content_bg" id="content_bg">
+				<div class="mui-slider">
+				  <div class="mui-slider-group mui-slider-loop" id="slider-box">
+				    <!--支持循环，需要重复图片节点-->
+				    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../image/main/4.jpg" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="../image/main/0.jpg" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="../image/main/1.jpg" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="../image/main/2.jpg" /></a></div>
+				    <div class="mui-slider-item" id="slider-item-network"><a href="#"><img id="item-network-img" src="" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="../image/main/4.jpg" /></a></div>
+				    <!--支持循环，需要重复图片节点-->
+				    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../image/main/0.jpg" /></a></div>
+				  </div>
+				</div>
 				<div class="content_avatar">
-					<img src="../image/editor/icon-img.png" />
+					<img class="reqBtn" src="../image/editor/icon-img.png" />
 				</div>
 				<div class="content_center">
-					<img src="../image/editor/button-left.png" />
-					<div class="content_center_text">插入封面图片引起围观</div>
-					<img src="../image/editor/button-right.png" />
+					<img id="silder_left" src="../image/editor/button-left.png" />
+					<div class="reqBtn" class="content_center_text">插入封面图片引起围观</div>
+					<img id="silder_right" src="../image/editor/button-right.png" />
 				</div>
 			</div>
-			<div class="content_box" id="content_box">
-				<h3 class="content_title">添加标题</h3>
-				<p class="content_body">添加正文</p>
+			<div class="content_box">
+				<h3 class="content_title" id="content_title"><span id="titleWord">添加标题</span><input id="titleInput" type="text" id="" value="" placeholder="添加标题" /></h3>
+				<p class="content_body" id="content_body">
+					<span id="bodyWord">添加正文</span>
+					<textarea id="content_body_text" placeholder="添加正文"></textarea>
+				</p>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../login/JS/app.js" ></script>
 		<script type="text/javascript">
-			mui.init();
-			var top = document.getElementById("content_box").offsetTop.innerHeight;
-			var Height = document.body.clientHeight;
-			var Hdiv = Height - top;
-			console.log(Height,top)
+			mui.init();		
+			//获得slider插件对象
+			var gallery = mui('.mui-slider');
+			var flagindex = 0;
+			gallery.slider({interval:0});	
+			var state = app.getState();
+			//切换图片
+			document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+			  flagindex = event.detail.slideNumber;
+			});
+			
+			document.getElementById("silder_left").addEventListener('tap',function(){
+				flagindex--;
+				if(flagindex < 0){
+					flagindex = 3;
+					gallery.slider({interval:0}).gotoItem(flagindex);
+				}else{
+					gallery.slider({interval:0}).gotoItem(flagindex);
+				}
+			})
+				
+			document.getElementById("silder_right").addEventListener('tap',function(){
+				flagindex++;
+				if(flagindex > 3){
+					flagindex = 0;
+					gallery.slider({interval:0}).gotoItem(flagindex);
+				}else{
+					gallery.slider({interval:0}).gotoItem(flagindex);
+				}
+			})
+			
+			//调整正文高度
+			var Hheight = document.getElementById("header").offsetHeight;
+			var Hbody = document.body.offsetHeight;
+			var Hcontent_bg = document.getElementById("content_bg").offsetHeight;
+			var Hcontent_body = document.getElementById("content_body");
+			var Hcontent = document.getElementById("content");
+			var height = Hbody - Hheight - Hcontent_bg -70;
+			Hcontent.style.height = Hbody - Hheight + 'px';
+			Hcontent_body.style.height = height +'px';
+			
+			//切换输入
+			var content_title = document.getElementById("content_title");
+			var titleInput = document.getElementById("titleInput");
+			var titleWord = document.getElementById("titleWord");
+			content_title.addEventListener('tap',function(){
+				titleWord.style.display = 'none';
+				titleInput.style.display = 'block';
+			});
+						
+			var bodyWord = document.getElementById("bodyWord");
+			var content_body_text = document.getElementById("content_body_text");
+			bodyWord.addEventListener('tap',function(){
+				bodyWord.style.display = 'none';
+				content_body_text.style.display = 'block';
+			})
+			
+			mui.plusReady(function () {
+			  	var content_bg = document.getElementById("content_bg");
+			  	var sliderBox = document.getElementById("item-network-img");
+			  	var sliderItemNetwork = document.getElementById("slider-item-network");
+			mui('#content_bg').on('tap','.reqBtn',function(){
+				showActionSheet();
+			})
+			
+			function showActionSheet(){
+				var bts=[{title:"拍照"},{title:"相册"}];
+				plus.nativeUI.actionSheet({cancel:"取消",buttons:bts},
+					function(e){
+						if(e.index==1){
+							//拍照
+							photo();					
+						}else if(e.index==2){
+							//相册
+							picture();
+						}
+					}
+				);
+			}
+			
+				//拍照
+				function photo(){
+					var camera = plus.camera.getCamera();
+					camera.captureImage( function ( path ) {
+						var url=plus.io.convertLocalFileSystemURL(path);
+						plus.gallery.save( path ,function(){
+							console.log('保存照片成功')						
+							var path = 'file://'+url;
+							//提取出格式
+							var name = path.substr(path.lastIndexOf('/') + 1);
+							//图片压缩
+							plus.zip.compressImage({
+									src:path,
+									dst:"_doc/" + name,
+									quality:50,
+									overwrite:true
+								},
+								function(event) {
+									var width = event.width;
+									var height = event.height;
+									var target = event.target;
+									var size = event.size; // 压缩转换后图片的大小，单位为字节（Byte）
+									if(width>height){
+										basepic(target);
+									}else{
+									 	return mui.toast('亲！请选择横版照片哟！');
+									}									
+								},function(error) {
+									mui.toast('照片选取出错！');
+							});	
+						},function(){
+							console.log('保存照片失败')
+						});							
+					}, function ( path ) {
+					mui.toast( "取消拍照" );
+				}, {filename:"_doc/gallery/",index:1} );
+	}
+	
+			//相册选择
+			function picture(){
+				var size = 0;
+					plus.gallery.pick( function(path){
+						//提取出格式
+						var name = path.substr(path.lastIndexOf('/') + 1);
+						//图片压缩
+						plus.zip.compressImage({
+								src:path,
+								dst:"_doc/" + name,
+								quality:50,
+								overwrite:true
+							},
+							function(event) {
+								var width = event.width;
+								var height = event.height;
+								var target = event.target;
+								var size = event.size; // 压缩转换后图片的大小，单位为字节（Byte）
+								if(width>height){
+									basepic(target);
+								}else{
+								 	return mui.toast('亲！请选择横版照片哟！');
+								}
+								
+							},function(error) {
+								mui.toast('照片选取出错！');
+						});				
+					}, function(path){
+						mui.toast('取消拍照');
+					}, {});	
+			}
+	
+			//将图片转化为base64
+			function basepic(path){
+				//提取出格式
+				var imgFormat = path.substr(path.lastIndexOf('.') + 1);
+				var bitmap = new plus.nativeObj.Bitmap("test"); //test标识谁便取
+				// 从本地加载Bitmap图片
+				var Img=bitmap.load(path, function() {
+					var base64 = bitmap.toBase64Data();
+					var ajaxData = {
+						url: 'other/uploadimg',
+						data: {
+							token: state.token,
+							img:base64,
+							imgFormat:imgFormat
+						},
+						type: 'post'
+					}
+					ajax(ajaxData, function(data) {
+						console.log(JSON.stringify(data))
+						if(data.success === true){
+							var imgUrl = data.imgURL;
+							//插入这张图片
+							sliderItemNetwork.style.overflow = 'hidden';
+							sliderBox.src = path;
+							sliderBox.setAttribute('data-url',imgUrl);
+						}else{
+							plus.nativeUI.toast('上传图片失败，请稍后再试！');
+						}
+					});
+					//上传图片
+				}, function(e) {
+					console.log('加载图片失败：' + JSON.stringify(e));
+					plus.nativeUI.toast('上传图片失败，请稍后再试！');
+				}); 
+			}
+	
+			//发表问题
+			document.getElementById("sendBtn").addEventListener('tap',function(){
+				if(titleInput.value == '' || content_body_text.value == ''){
+					return plus.nativeUI.toast('请填写完整！')
+				}
+				if(flagindex == 3){
+					//走图片上传
+					var bg = sliderBox.getAttribute('data-url');
+					var ajaxData = {
+						url: 'article/announce',
+						data: {
+							token: state.token,
+							title:titleInput.value,
+							content:content_body_text.value,
+							bg:bg,
+							type:0
+						},
+						type: 'post'
+					}
+					ajax(ajaxData, function(data) {
+						console.log(JSON.stringify(data))
+						if(data.success === true){
+							mui.back();
+						}else{
+							plus.nativeUI.toast('发送失败，请稍后再试！')
+						}
+					});
+				}else{
+					//走系统内置
+				var ajaxData = {
+						url: 'article/announce',
+						data: {
+							token: state.token,
+							title:titleInput.value,
+							content:content_body_text.value,
+							bg:flagindex,
+							type:0
+						},
+						type: 'post'
+					}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+					if(data.success === true){
+						mui.back();
+					}else{
+						plus.nativeUI.toast('发送失败，请稍后再试！')
+					}
+				});
+				}
+			})
+		})
 		</script>
 	</body>
 

@@ -8,38 +8,44 @@
 		<meta content="yes" name="apple-touch-fullscreen">
 		<meta content="telephone=no,email=no" name="format-detection">
 		<link rel="stylesheet" href="../css/mui.min.css" />
-		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
 		<link rel="stylesheet" href="../css/style.css" />
 		<style>
-			.body_bg{
+			.body_bg {
 				background-image: url(../image/personal/set-bg.png);
 			}
-			.avatar_box{
+			
+			.avatar_box {
 				align-items: center;
 				justify-content: center;
 				text-align: center;
 			}
-			.content_avatar{
-				height:2.777777rem;
-				width:2.777777rem;				
+			
+			.content_avatar {
+				height: 2.777777rem;
+				width: 2.777777rem;
 				margin: 0.577777rem auto;
 				margin-top: 0.977777rem;
+				border-radius: 45px;
 			}
-			.content_avatar img{
+			
+			.content_avatar img {
 				width: 100%;
 				height: 100%;
 			}
-			.header_title{
+			
+			.header_title {
 				font-size: 0.5rem;
-				color: rgba(255,255,255,1);
+				color: rgba(255, 255, 255, 1);
 			}
 			
-			.content_body{
+			.content_body {
 				position: absolute;
 				bottom: 2.830555rem;
 				left: 0;
 			}
-			.content_body_ul{
+			
+			.content_body_ul {
 				display: flex;
 				bottom: 0;
 				justify-content: space-between;
@@ -47,13 +53,15 @@
 				width: 100%;
 				margin-top: 1.055555rem;
 			}
-			.content_body_ul li{
+			
+			.content_body_ul li {
 				width: 100%;
 				text-align: center;
 				font-size: 0.388888rem;
-				color: rgba(255,255,255,.5);
+				color: rgba(255, 255, 255, .5);
 			}
-			.content_body_ul img{
+			
+			.content_body_ul img {
 				width: 2.5rem;
 				height: 1.805555rem;
 			}
@@ -62,59 +70,135 @@
 
 	<body class="body_bg">
 		<header class="headerNav" id="header">
-			<img src="../image/return.png" />
+			<img class="mui-action-back" src="../image/return.png" />
 		</header>
 		<div class="content">
 			<div class="avatar_box">
-				<div class="content_avatar">
-					<img src="../image/personal/set-head.png" />	
+				<div id="changeBtn" class="content_avatar">
+					<img id="head-avatar" src="" />
 				</div>
-				<div class="header_title">vecellio</div>
-			</div>		
+				<div class="header_title" id="head-title"></div>
+			</div>
 			<div class="content_body">
 				<ul class="content_body_ul">
-					<li>
+					<li class="boxlist" data-list='signIn'>
 						<img src="../image/personal/set-icon-sign.png" />
 						<div class="body_title">签到</div>
 					</li>
-					<li>
-						<img src="../image/personal/set-icon-sign.png" />
-						<div class="body_title">签到</div>
+					<li class="boxlist" data-list='commentChild'>
+						<img src="../image/personal/set-icon-comment.png" />
+						<div class="body_title">我的评论</div>
 					</li>
-					<li>
-						<img src="../image/personal/set-icon-sign.png" />
-						<div class="body_title">签到</div>
+					<li class="boxlist" data-list="myMessage">
+						<img src="../image/personal/set-icon-message.png" />
+						<div class="body_title">我的消息</div>
 					</li>
-					<li>
-						<img src="../image/personal/set-icon-sign.png" />
-						<div class="body_title">签到</div>
+					<li class="boxlist" data-list='robot'>
+						<img src="../image/personal/set-icon-robot.png" />
+						<div class="body_title">小智</div>
 					</li>
 
 				</ul>
 				<ul class="content_body_ul">
-					<li>
-						<img src="../image/personal/set-icon-sign.png" />
-						<div class="body_title">签到</div>
+					<li class="boxlist" data-list='mycontent'>
+						<img src="../image/personal/set-icon-content.png" />
+						<div class="body_title">我的内容</div>
 					</li>
-					<li>
-						<img src="../image/personal/set-icon-sign.png" />
-						<div class="body_title">签到</div>
+					<li class="boxlist" data-list='lookStar'>
+						<img src="../image/personal/set-icon-star.png" />
+						<div class="body_title">星币总量</div>
 					</li>
-					<li>
-						<img src="../image/personal/set-icon-sign.png" />
-						<div class="body_title">签到</div>
+					<li class="boxlist" data-list='myAchievement'>
+						<img src="../image/personal/set-icon-honor.png" />
+						<div class="body_title">我的成就</div>
 					</li>
-					<li>
-						<img src="../image/personal/set-icon-sign.png" />
-						<div class="body_title">签到</div>
+					<li class="boxlist" data-list='../login/login_main'>
+						<img src="../image/personal/set-icon-exit.png" />
+						<div class="body_title">返回地球</div>
 					</li>
-
 				</ul>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/arttmpl.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
+		<script type="text/javascript" src="../login/JS/app.js"></script>
+		<script type="text/javascript" src="../js/ajax.config.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			mui.plusReady(function() {
+				//修改个人资料
+				document.getElementById("changeBtn").addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'personalDetail.html',
+						id: 'personalDetail',
+						preload: true,
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide',
+							bounce: 'vertical'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+
+				})
+				//点击事件
+				mui('.content_body_ul').on('tap', '.boxlist', function() {
+					var data = this.getAttribute('data-list');
+					mui.openWindow({
+						url: data + '.html',
+						id: data,
+						preload: true,
+						show: {
+							aniShow: 'pop-in'
+						},
+						styles: {
+							popGesture: 'hide',
+							bounce: 'vertical'
+						},
+						waiting: {
+							autoShow: false
+						}
+					});
+				});
+				//获取数据 绑定		
+				var state = app.getState();
+				console.log(JSON.stringify(state))
+				var headerObj = {
+					avatar: document.getElementById("head-avatar"),
+					nickname: document.getElementById("head-title")
+				}
+				if(state.user.avatar) {
+					headerObj.avatar.src = state.user.avatar;
+				} else {
+					headerObj.avatar.src = '../image/personal/set-head.png';
+				}
+				if(state.user.nickname) {
+					headerObj.nickname.innerHTML = state.user.nickname;
+				} else {
+					headerObj.nickname.innerHTML = 'none';
+				}
+
+				//监听自定义事件，刷新页面
+				document.addEventListener('changPersonal', function(event) {
+					//触发更新
+					var newState = app.getState();
+					if(newState.user.avatar) {
+						headerObj.avatar.src = newState.user.avatar;
+					} else {
+						headerObj.avatar.src = '../image/personal/set-head.png';
+					}
+					if(newState.user.nickname) {
+						headerObj.nickname.innerHTML = newState.user.nickname;
+					} else {
+						headerObj.nickname.innerHTML = 'none';
+					}
+				});
+			})
 		</script>
 	</body>
 

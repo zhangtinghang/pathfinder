@@ -60,26 +60,95 @@
 
 	<body class="body_bg">
 		<header class="headerNav" id="header">
-			<img src="../image/return.png" />
+			<img class="mui-action-back" src="../image/return.png" />
 			<div class="headerTitle">确认身份</div>
-			<div class="headRight">确定</div>
+			<div class="headRight" id="comeBtn">确定</div>
 		</header>
 		<div class="content">
 			<div class="avatar_box">
 				<div class="content_avatar">
-					<img src="../image/personal/set-head.png" />	
+					<img id="head-avatar" />
 				</div>
 			</div>
 			<div class="content_body">
 				<div class="nickname">昵称</div>
-				<input class="input nicknameInput" type="text" value="vecellio" />
+				<input class="input nicknameInput" type="text" id="head-nickname" />
 				<div class="nickname">用一句话介绍自己：</div>
-				<textarea class="input bodyInput">潭中鱼可百许头，可清真，可红烧，可烧烤。。。</textarea>
+				<textarea class="input bodyInput" id="head-description"></textarea>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../login/JS/app.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../js/ajax.config.js" ></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init({
+				beforeback: function(){
+					//获得列表界面的webview
+					var content = plus.webview.getWebviewById('personal');
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(content,'changPersonal',{
+						id:"刷新"
+					});
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			})
+			
+			var state = app.getState();
+			//获取数据 绑定		
+			var headerObj = {
+				avatar : document.getElementById("head-avatar"),
+				nickname : document.getElementById("head-nickname"),
+				description:document.getElementById("head-description")
+			}
+				if(state.user.avatar){
+					headerObj.avatar.src = state.user.avatar;
+				}else{
+					headerObj.avatar.src = '../image/personal/set-head.png';
+				}
+				if(state.user.nickname){
+					headerObj.nickname.value = state.user.nickname;
+				}else{
+					headerObj.nickname.value = 'none';
+				}
+				if(state.user.description){
+					headerObj.description.value = state.user.description;
+				}else{
+					headerObj.description.placeholder = '简介';
+				}
+				
+			//点击确定按钮
+			document.getElementById("comeBtn").addEventListener('tap',function(){
+				if(headerObj.nickname ==''){
+					return plus.nativeUI.toast('昵称不能为空！')
+				}
+				//头像
+				var ajaxData = {
+					url: 'user/alter',
+					data: {
+						token: state.token,
+						nickname:headerObj.nickname.value,
+						description:headerObj.description.value
+					},
+					type: 'post'
+				}
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+					if(data.success == true){
+						//获取最新数据 并且更新到本地配置
+						UpdataUser(state,function(save){
+							if(save.success == true){
+								mui.back();
+							}else{
+								plus.nativeUI.toast('更新数据出错，请重新提交！')
+							}
+						})
+					}else{
+						plus.nativeUI.toast('提交失败，请稍后再试！')
+					}
+				});	
+			})
 		</script>
 	</body>
 

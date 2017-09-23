@@ -10,37 +10,40 @@
 		<link rel="stylesheet" href="../css/mui.min.css" />
 		<link rel="stylesheet" href="../css/style.css" />
 		<link rel="stylesheet" href="login_css/main.css" />
-		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
-		<style>	
-			.content{
-				position:absolute;
-				bottom:10%;
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<style>
+			.content {
+				position: absolute;
+				bottom: 10%;
 				left: 0;
-				width:100%;
+				width: 100%;
 			}
-			.btn_box{
+			
+			.btn_box {
 				display: flex;
 				justify-content: space-around;
 				align-items: center;
 			}
-			.btn_box button{
-				width:40%;
-				padding:8px 0;
-				background-color: rgba(255,255,255,0);
-				border-radius:30px;
-				color: rgb(255,255,255);
+			
+			.btn_box button {
+				width: 40%;
+				padding: 8px 0;
+				background-color: rgba(255, 255, 255, 0);
+				border-radius: 30px;
+				color: rgb(255, 255, 255);
 				font-size: 0.555555rem;
 			}
-			.line{
-			}
+			/*.line{
+			}*/
 			
-			.thirdparty{
-				display:flex;
-				justify-content:space-around;
-				align-items:center;
+			.thirdparty {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
 				margin: 0.944444rem;
 			}
-			.thirdparty img{
+			
+			.thirdparty img {
 				width: 1.111111rem;
 				height: 1.111111rem;
 			}
@@ -50,19 +53,133 @@
 	<body class="body_bg">
 		<div class="content">
 			<div class="btn_box">
-				<button type="button">注册</button>
-				<button type="button">登录</button>
+				<button type="button" id="register">注册</button>
+				<button type="button" id="login">登录</button>
 			</div>
 			<div class="line">more</div>
 			<div class="thirdparty">
-				<img src="../image/login/qq.png" />
-				<img src="../image/login/wechat.png"  />
-				<img src="../image/login/weibo.png" />
+				<img class="oauth-btn" data-Login="qq" src="../image/login/qq.png" />
+				<img class="oauth-btn" data-Login="weixin" src="../image/login/wechat.png" />
+				<img class="oauth-btn" data-Login="sinaweibo" src="../image/login/weibo.png" />
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/ajax.config.js"></script>
+		<script type="text/javascript" src="JS/app.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					plus.screen.lockOrientation("portrait-primary");
+					//获取应用本地配置
+					var settings = app.getSettings();
+					//获取当前状态
+					var state = app.getState();
+					//预加载页面
+					var mainPage = $.preload({
+						"id": 'main',
+						"url": 'main.html'
+					});
+					var main_loaded_flag = false;
+					mainPage.addEventListener("loaded",function () {
+						main_loaded_flag = true;
+					});
+					var toMain = function() {
+						//使用定时器的原因：
+						//可能执行太快，main页面loaded事件尚未触发就执行自定义事件，此时必然会失败
+						var id = setInterval(function () {
+							if(main_loaded_flag){
+								clearInterval(id);
+								$.fire(mainPage, 'show', null);
+								mainPage.show("pop-in");
+							}
+						},20);
+					};
+					
+					//检查 "登录状态" 开始
+					if (settings.autoLogin && state.token) {
+						toMain();
+					} else {
+						app.setState(null);
+						//第三方登录
+						var authBtns = ['qq', 'sinaweibo', 'weixin']; //配置业务支持的第三方登录
+						var auths = {};
+						var oauthArea = doc.querySelector('.thirdparty');
+						plus.oauth.getServices(function(services) {
+							for (var i in services) {
+								var service = services[i];
+								console.log(JSON.stringify(service))
+								auths[service.id] = service;
+							}
+							$(oauthArea).on('tap', '.oauth-btn', function() {
+								var authId = this.getAttribute('data-Login');
+								var auth = auths[authId];
+								var waiting = plus.nativeUI.showWaiting();
+								auth.login(function() {
+									waiting.close();
+									plus.nativeUI.toast("登录认证成功");
+									auth.getUserInfo(function() {
+										plus.nativeUI.toast("获取用户信息成功");
+										var name = auth.userInfo.nickname || auth.userInfo.name;
+										console.log('名称',JSON.stringify(auth.userInfo))
+										app.createState(name, function() {
+											toMain();
+										});
+									}, function(e) {
+										plus.nativeUI.toast("获取用户信息失败：" + e.message);
+									});
+								}, function(e) {
+									waiting.close();
+									plus.nativeUI.toast("登录认证失败：" + e.message);
+								});
+							});
+						}, function(e) {
+							oauthArea.style.display = 'none';
+							plus.nativeUI.toast("获取登录认证失败：" + e.message);
+						});
+					}
+					//检查 "登录状态" 结束
+					var loginButton = doc.getElementById('login');
+					var register = doc.getElementById('register');
+					//跳转登录页面
+					loginButton.addEventListener('tap', function(event) {
+						$.openWindow({
+							url: 'login.html',
+							id: 'login',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide',
+								bounce:'vertical'
+							}, 
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+					
+					//跳转注册
+					register.addEventListener('tap', function(event) {				
+						$.openWindow({
+							url: 'register.html',
+							id: 'register',
+							preload: true,
+							show: {
+								aniShow: 'pop-in'
+							},
+							styles: {
+								popGesture: 'hide',
+								bounce:'vertical'
+							},
+							waiting: {
+								autoShow: false
+							}
+						});
+					});
+				});
+			}(mui, document));
 		</script>
 	</body>
 

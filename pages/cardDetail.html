@@ -13,7 +13,7 @@
 		<style>
 			.headRight{
 				width: 1.027777rem;
-				height: 0.972222rem;			
+				height: 0.972222rem;
 			}
 			.content_bg{
 				width: 100%;
@@ -53,22 +53,83 @@
 
 	<body class="body_bg">
 		<header class="headerNav" id="header">
-			<img src="../image/return.png" />
-			<div class="headerTitle">vecellio</div>
-			<img class="headRight" src="../image/cardDetail/content-button.png" />
+			<img id="return" class="mui-action-back" src="../image/return.png" />
+			<div class="headerTitle" id="headTitle"></div>
+			<img class="headRight" id = "commentIcon" src="../image/cardDetail/content-button.png" />
 		</header>
 		<div class="content">
 			<div class="content_bg">
-				
+				<img id="bg-img" class="bg-img" /> 
 			</div>
 			<div class="content_box">
-				<h3 class="content_title">你经历的那些事情是让你怀疑这个世界事假的</h3>
-				<p class="content_body">你经历的哪些事情让你怀疑这个世界是假的呢？感觉真的比假的难证明。</p>
+				<h3 id="card-title" class="content_title"></h3>
+				<p id="card-content" class="content_body"></p>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			var dc = {
+				headTitle:document.getElementById("headTitle"),
+				bg_img : document.getElementById("bg-img"),
+				card_title : document.getElementById("card-title"),
+				card_content : document.getElementById("card-content"),
+				commentIcon : document.getElementById("commentIcon")
+			}
+			
+			function getDefaultData() {
+				return {
+					cover: '',
+					title: '',
+					nickname: '',
+					content: ''
+				}
+			}
+			//监听自定义事件，获取新闻详情
+			document.addEventListener('get_detail', function(event) {
+				var aid = event.detail.aid;
+				console.log(aid)
+				if(!aid) {
+					return;
+				}
+				//前页传入的数据，直接渲染，无需等待ajax请求详情后
+				dc.headTitle.innerHTML = event.detail.nickname;
+				dc.bg_img.src = event.detail.cover;
+				dc.card_title.innerHTML = event.detail.title;
+				dc.card_content.innerHTML = event.detail.content;
+				dc.card_content.setAttribute('data-aid',aid);
+			});
+			//监听右上角评论事件
+			dc.commentIcon.addEventListener('tap',function(){
+				var aid = dc.card_content.getAttribute('data-aid');
+				mui.openWindow({
+					url:'comment.html',
+					id: 'comment.html',
+					preload: true,
+					show: {
+						aniShow: 'pop-in'
+					},
+					styles: {
+						popGesture: 'hide',
+						bounce: 'vertical'
+					},
+					extras:{
+				      	aid:aid
+				   },
+					waiting: {
+						autoShow: false
+					}
+				});
+			})
+			//重写返回逻辑
+			mui.back = function() {
+				plus.webview.currentWebview().hide("auto", 300);
+				//动画结束后，恢复默认值
+				setTimeout(function() {
+					window.scrollTo(0, 0);
+					getDefaultData();
+				}, 300);
+			}
 		</script>
 	</body>
 

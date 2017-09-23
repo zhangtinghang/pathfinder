@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<title>列表页</title>
+		<style>
+			#body {
+				overflow: hidden;
+			}
+			
+			.mui-content {
+				overflow: hidden;
+			}
+			
+			.listBox {
+				width: 100%;
+				margin: 0 auto;
+				position: relative;
+			}
+			
+			.listBox ul li {
+				list-style: none;
+				width: 86%;
+				height: 65%;
+				position: absolute;
+				bottom: 0;
+				left: 7%;
+				border-radius: 5px;
+				background-color: rgb(255, 255, 255);
+				transform: translateY(-200px) translateZ(-160px);
+				z-index: 1;
+			}
+			
+			.header_time{
+				text-align: center;
+				width: 3.888888rem;
+				height: 0.694444rem;
+				background-color: rgba(249,152,152,1);
+				border-radius:40px;
+				margin: 0 auto;
+				margin-top: -0.347222rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #FFFFFF;
+				font-size: 0.388888rem;
+			}
+			.listBox_li{
+				position:relative;
+				border-radius:15px !important;
+			}
+			.card_title{
+				width: 100%;
+				text-align: center;
+				color: #000000;
+				font-size: 0.5rem;
+				margin: 0.672222rem 0;
+			}
+			.deleteBtn{
+				position:absolute;
+				right:0.277777rem;
+				top:0.166666rem;
+				font-size: 0.388888rem;
+				color: rgba(51,51,51,1);
+				z-index: 9;
+			}
+			.card_content{
+				padding:0 0.277777rem;
+				line-height:28px;
+				color: #333333;
+				font-size: 0.388888rem;
+			}
+			
+			.card_img{
+				width: 100%;
+				padding:0 0.277777rem;
+			}
+			.card_img img{
+				width: 100%;
+			}
+			
+			.headRight {
+				width: 2.083333rem !important;
+				height: 1.013888rem !important;
+			}
+			
+			#body {
+				overflow: hidden;
+			}
+			
+			.mui-content {
+				overflow: hidden;
+			}
+			
+			.listBox {
+				width: 100%;
+				margin: 0 auto;
+				position: relative;
+				transform-style: preserve-3d;
+				/*为 3D 转换元素定义透视视图。rotateX旋转X*/
+				transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+			}
+			
+			.listBox ul li {
+				list-style: none;
+				width: 86%;
+				height: 65%;
+				position: absolute;
+				bottom: 0;
+				left: 7%;
+				border-radius: 5px;
+				background-color: rgb(255, 255, 255);
+				transform: translateY(-200px) translateZ(-160px);
+				z-index: 1;
+			}
+			
+			.listBox_li{
+				position:relative;
+				border-radius:15px !important;
+			}
+			
+			.card_avatar{
+				text-align: center;
+				width: 1.388888rem;
+				height:1.388888rem;
+				border-radius:40px;
+				margin: 0 auto;
+				margin-top: -0.694444rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: #FFFFFF;
+				font-size: 0.388888rem;
+			}
+			
+			.card_avatar img{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.card_title{
+				width: 100%;
+				text-align: center;
+				color: #000000;
+				font-size: 0.5rem;
+				margin: 0.672222rem 0;
+			}
+			
+			.card_content{
+				padding:0 0.277777rem;
+				line-height:28px;
+				color: #333333;
+				font-size: 0.388888rem;
+			}
+			
+			.card_img{
+				width: 100%;
+				padding:0 0.277777rem;
+			}
+			.card_img img{
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body class="body_bg" id="body">
+		<header class="headerNav" id="header">
+			<img class="mui-action-back" src="../image/return.png" />
+			<div class="headerTitle">星球回忆</div>
+		</header>
+		<!--<div class="mui-content body_bg">
+			<div class="listBox" id="content">
+				<ul class="listBox_ul" id="contentList">
+					<!--<li class="listBox_li">
+						<div class="card_avatar"><img :src="item.avatar" /></div>
+						<div class="card_title">{{item.title}}</div>
+						<div class="card_content">{{item.content}}</div>
+						<div class="card_img"><img :src="item.cover"/></div>
+					</li>
+					<li class="listBox_li">
+						<div class="card_avatar"><img :src="item.avatar" /></div>
+						<div class="card_title">{{item.title}}</div>
+						<div class="card_content">{{item.content}}</div>
+						<div class="card_img"><img :src="item.cover"/></div>
+					</li>
+					<li class="listBox_li">
+						<div class="card_avatar"><img :src="item.avatar" /></div>
+						<div class="card_title">{{item.title}}</div>
+						<div class="card_content">{{item.content}}</div>
+						<div class="card_img"><img :src="item.cover"/></div>
+					</li>-->
+					<!--<li class="listBox_li">
+						<div class="header_time">2017-6-18</div>
+						<div class="deleteBtn">删除</div>
+						<div class="card_title">你有什么道理后悔没有早点知道？</div>
+						<div class="card_content">人越成长，越发现有很多道理应该早点知道就比如最近的我：要是我早点知道读书的重要性，现在就不会混成这样了“万能的旅行者请你们分享一下吧！</div>
+						<div class="card_img"><img src="../image/cbd.jpg"/></div>
+					</li>
+				</ul>
+			</div>
+		</div>-->
+		<div class="mui-content body_bg">
+			<div class="listBox" id="content">
+				<ul class="listBox_ul" id="contentList">
+					<!--<li class="listBox_li">
+						<div class="card_avatar"><img :src="item.avatar" /></div>
+						<div class="card_title">{{item.title}}</div>
+						<div class="card_content">{{item.content}}</div>
+						<div class="card_img"><img :src="item.cover"/></div>
+					</li>-->
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="../js/move.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../login/JS/app.js" ></script>
+		<script type="text/javascript">
+			//确定header高度
+			Hhead = document.getElementById("header").offsetHeight;
+			//确定body高度
+			var Bh = document.getElementById("body").offsetHeight;
+			var listBox = document.getElementById("content");
+			//确定容器高度
+			listBox.style.height = Bh - Hhead + 'px';
+			//初始化
+			mui.init({
+				gestureConfig: {
+					tap: true, //默认为true
+					swipe: true, //默认为true
+					hold: true, //默认为false，不监听
+					release: true //默认为false，不监听
+				}
+			});
+			
+			//获取数据
+			var state = app.getState();
+			var uid = state.user.uid;
+			console.log('这是用户uid='+uid)
+			var ajaxData = {
+					url: 'article/getlatest',
+					data:'uid='+uid+'&count=40&type=0',
+					type: 'get'
+			}
+			var contentList = document.getElementById("contentList");
+				ajax(ajaxData, function(data) {
+					//处理数据并且渲染
+					if(data.success == true){
+						var rsp = data.articles;
+						for(var i=0;i<rsp.length;i++){
+							var avatar = rsp[i].avatar;
+							var title = rsp[i].title;
+							var content = rsp[i].content;
+							var cover = rsp[i].bg;
+							var aid = rsp[i].aid;
+							var username = rsp[i].username;
+							var time = rsp[i].create_date;
+							contentList.innerHTML += '<li class="listBox_li">'+
+								'<div class="header_time">'+time+'</div>'+
+								'<div class="deleteBtn">删除</div>'+
+								'<div class="card_title">'+title+'</div>'+
+								'<div class="card_content">'+content+'</div>'+
+								'<div class="card_img"><img src="'+cover+'"/></div></li>';
+						}
+					//输出匹配元素数量
+					var oLs = $('#content ul li').size();
+					var yDeg = 0;
+					for(var i = oLs - 1; i >= 0; i--) {
+						yDeg = -i * 110;
+						$('#content ul li').eq(i).css({
+							'transform': 'translateY(' + yDeg + 'px) translateZ(' + yDeg + 'px)'
+						});
+					}
+					}
+				});
+				
+			mui.plusReady(function() {
+				//预加载详情页
+				webview_detail = mui.preload({
+					url: 'cardDetail.html',
+					id: 'cardDetail',
+					styles: {
+						"render": "always",
+						"popGesture": "hide",
+						"bounce": "vertical"
+					}
+				});
+			});
+			//为每个事件绑定点击事件，传递参数到详情页(昵称 图片 标题 内容)			
+			mui('#contentList').on('tap','.listBox_li',function(){
+				var aid = this.getAttribute('data-aid');
+				var nickname = this.getAttribute('data-nickname');
+				var title = this.querySelector(".card_title").innerHTML.trim();
+				var content = this.querySelector(".card_content").innerHTML;
+				var avatar = this.querySelector(".item_avatar").getAttribute("src");
+				var cover = this.querySelector(".item_cover").getAttribute("src");
+				open_detail(aid,nickname,title,content,avatar,cover);				
+			});
+			
+			function open_detail(aid,nickname,title,content,avatar,cover) {
+				//若详情页尚未预加载完成，则延时等待再执行
+				if(!webview_detail) {
+					setTimeout(function() {
+						open_detail(aid);
+					}, 100);
+				}
+				//触发子窗口变更新闻详情
+				mui.fire(webview_detail, 'get_detail', {
+					aid: aid,
+					nickname:nickname, 
+					title:title,
+					content:content,
+					avatar:avatar,
+					cover:cover
+				});
+				setTimeout(function () {
+					webview_detail.show("slide-in-right", 300);
+				},150);
+			}
+		</script>
+	</body>
+</html>

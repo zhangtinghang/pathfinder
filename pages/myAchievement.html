@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="yes" name="apple-touch-fullscreen">
+		<meta content="telephone=no,email=no" name="format-detection">
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<script type="text/javascript" src="../js/zoom/flexible.js" ></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<style>
+			.footer{
+				width: 100%;
+				height: 4.555555rem;
+				background-image: url(../image/myAchievement/bg.png);
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 100%;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+			}
+			.content_circle{
+				position: relative;
+				display: flex;
+				width: 8.75rem;
+				height: 8.75rem;
+				margin: 0 auto;
+				background-image: url(../image/myAchievement/big.png);
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				margin-top: 2.077777rem;
+				justify-content: center;
+				align-items: center;
+			}
+			.content_circle img{
+				width: 100%;
+			}
+			.inner-circle{
+				width: 6.25rem;
+				height: 6.25rem;
+			}
+			.inner-circle img{
+				width: 100%;
+			}
+			.circle-box li{
+				position: absolute;
+			}
+			.circle1{
+				width: 1.027777rem;
+				height: 3.208333rem;
+				top: 0;
+				left: 50%;
+				margin-left: -0.513888rem;
+			}
+			.circle2{
+				width: 2.25rem;
+				height: 3.111111rem;
+				top: 0.605rem;
+				left: 50%;
+				margin-left:0.316666rem;
+			}
+			.circle3{
+				width: 3.027777rem;
+				height:2.319444rem;
+				top: 2.13333rem;
+				left: 50%;
+				margin-left: 0.976666rem;
+			}
+			.circle4{
+				width: 3.208333rem;
+				height: 1.027777rem;
+				top: 50%;
+				left: 50%;
+				margin-left:1.154166rem;
+				margin-top: -0.413888rem;
+			}
+			.circle5{
+				width: 3.041666rem;
+				height: 2.319444rem;
+				top: 50%;
+				left: 50%;
+				margin-top:0.138888rem;
+				margin-left: 0.856666rem;
+			}
+			.circle6{
+				width: 2.277777rem;
+				height: 3.111111rem;
+				left: 50%;
+				top: 50%;
+				margin-left:0.27777rem;
+				margin-top: 0.677777rem;
+			}
+			.circle7{
+				width: 1.027777rem;
+				height: 3.208333rem;
+				bottom: 0;
+				left: 50%;
+				margin-left: -0.433888rem;
+			}
+			.circle8{
+				width: 2.319444rem;
+				height: 3.013888rem;
+				bottom: 0.455rem;
+				right: 50%;
+				margin-right:0;
+			}
+			.circle9{
+				width: 3.125rem;
+				height: 2.277777rem;
+				bottom: 1.73333rem;
+				right: 50%;
+				margin-right: 0.576666rem;
+			}
+			.circle10{
+				width: 3.208333rem;
+				height: 1.027777rem;
+				bottom: 50%;
+				right: 50%;
+				margin-right:1.154166rem;
+				margin-bottom: -0.553888rem;
+			}
+			.circle11{
+				width: 3.097222rem;
+				height: 2.263888rem;
+				bottom: 50%;
+				right: 50%;
+				margin-bottom:0.138888rem;
+				margin-right: 0.856666rem;
+			}
+			.circle12{
+				width: 2.305555rem;
+				height: 3.041666rem;
+				right: 50%;
+				bottom: 50%;
+				margin-right:0.27777rem;
+				margin-bottom: 0.677777rem;
+			}
+			
+			.animated {
+				animation: mydialog 30s infinite linear;
+				-webkit-animation: mydialog 30s infinite linear;
+				/*Safari 和 Chrome */
+				transform: rotateX(0deg);
+				-webkit-transform: rotateX(0deg);
+			}
+			.backwardanimated{
+				animation: backwardanimated 60s infinite linear;
+				-webkit-animation: backwardanimated 60s infinite linear;
+				/*Safari 和 Chrome */
+				transform: rotateX(0deg);
+				-webkit-transform: rotateX(0deg);
+			}
+			@keyframes mydialog {
+				0% {
+					transform: rotateZ(0deg);
+				}
+				100% {
+					transform: rotateZ(360deg);
+				}
+			}
+			
+			@-webkit-keyframes mydialog {
+				0% {
+					-webkit-transform: rotateZ(0deg);
+				}
+				100% {
+					-webkit-transform: rotateZ(360deg);
+				}
+			}
+			
+			@keyframes backwardanimated {
+				0% {
+					transform: rotateZ(360deg);
+				}
+				100% {
+					transform: rotateZ(0deg);
+				}
+			}
+			
+			@-webkit-keyframes backwardanimated {
+				0% {
+					-webkit-transform: rotateZ(360deg);
+				}
+				100% {
+					-webkit-transform: rotateZ(0deg);
+				}
+			}
+		</style>
+	</head>
+
+	<body class="body_bg">
+		<header class="headerNav" id="header">
+			<img id="return" class="mui-action-back" src="../image/return.png" />
+			<div class="headerTitle">星座轮盘</div>
+		</header>
+		<div class="content">
+			<div class="content_circle backwardanimated" >
+				<div class="inner-circle animated">
+					<img src="../image/myAchievement/small.png" />
+				</div>
+				<ul class="circle-box " >
+					<!--<li class="circle1"><img src="../image/myAchievement/1.png" /></li>-->
+					<!--<li class="circle2"><img src="../image/myAchievement/2.png" /></li>
+					<li class="circle3"><img src="../image/myAchievement/3.png" /></li>
+					<li class="circle4"><img src="../image/myAchievement/4.png" /></li>
+					<li class="circle5"><img src="../image/myAchievement/5.png" /></li>			
+					<li class="circle6"><img src="../image/myAchievement/6.png" /></li>
+					<li class="circle7"><img src="../image/myAchievement/7.png" /></li>
+					<li class="circle8"><img src="../image/myAchievement/8.png" /></li>
+					<li class="circle9"><img src="../image/myAchievement/9.png" /></li>
+					<li class="circle10"><img src="../image/myAchievement/10.png" /></li>
+					<li class="circle11"><img src="../image/myAchievement/11.png" /></li>			
+					<li class="circle12"><img src="../image/myAchievement/12.png" /></li>-->
+				</ul>
+			</div>
+			<div class="footer">
+				
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

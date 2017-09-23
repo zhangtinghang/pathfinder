@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="../css/mui.min.css" />
 		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
 		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../fonts/stylesheet.css" />
 		<style>
 			.content {
 				background-color: rgba(255, 255, 255, 1);
@@ -50,7 +51,8 @@
 			.comment_body {
 				padding-bottom: 20px;
 				font-size: 0.444444rem;
-				color: rgba(51, 51, 51, 1)
+				color: rgba(51, 51, 51, 1);
+				
 			}
 			.returnSend{
 				border: 1px solid #666666;
@@ -78,17 +80,23 @@
 				color: rgba(102,102,102,1);
 				font-size: 0.388888rem;
 			}
+			.body-child{
+				color: rgba(20,98,148,1);
+			}
+			.second{
+				padding-bottom: 0;
+			}
 		</style>
 	</head>
 
 	<body class="body_bg">
 		<header class="headerNav" id="header">
-			<img src="../image/return.png" />
+			<img class="mui-action-back" src="../image/return.png" />
 			<div class="headerTitle">我的评论</div>
 		</header>
 		
-		<div class="content">
-			<div class="commentBox">
+		<div class="content" id="content">
+			<!--<div class="commentBox">
 				<div class="commentHeader">
 					<div class="commentAvatar">
 
@@ -101,8 +109,11 @@
 					</div>
 					<div class="returnSend">回复</div>
 				</div>
+				<div class="comment_body second">
+					回复<span class="body-child">@逝去：</span>正在跟一客户谈生意，突然看见一初中学霸同学，现在居然在给人当保安，我感慨着世态炎凉，生活所迫的他竟沦落到这个地步。
+				</div>
 				<div class="comment_body">
-					正在跟一客户谈生意，突然看见一初中学霸同学，现在居然在给人当保安，我感慨着世态炎凉，生活所迫的他竟沦落到这个地步。
+					<span class="body-child">@逝去：</span>正在跟一客户谈生意，突然看见一初中学霸同学，现在居然在给人当保安，我感慨着世态炎凉，生活所迫的他竟沦落到这个地步。
 				</div>
 				<div class="body_Child">
 					<div class="childImg">
@@ -112,36 +123,87 @@
 						正在跟一客户谈生意，突然看见一初中学霸同学，现在居然在给人当保安，我感慨着世态炎凉，生活所迫的他竟沦落到这个地步。
 					</div>
 				</div>
-			</div>
-			<div class="commentBox">
-				<div class="commentHeader">
-					<div class="commentAvatar">
-
-					</div>
-					<div class="commentTitle">
-						相逢一笑
-					</div>
-					<div class="commentTime">
-						今天10：58
-					</div>
-					<div class="returnSend">回复</div>
-				</div>
-				<div class="comment_body">
-					正在跟一客户谈生意，突然看见一初中学霸同学，现在居然在给人当保安，我感慨着世态炎凉，生活所迫的他竟沦落到这个地步。
-				</div>
-				<div class="body_Child">
-					<div class="childImg">
-						
-					</div>
-					<div class="childbody mui-ellipsis-3">
-						正在跟一客户谈生意，突然看见一初中学霸同学，现在居然在给人当保安，我感慨着世态炎凉，生活所迫的他竟沦落到这个地步。
-					</div>
-				</div>
-			</div>
+			</div>-->
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/ajax.config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
+		<script type="text/javascript" src="../login/JS/app.js" ></script>
 		<script type="text/javascript">
 			mui.init();
+			var state = app.getState();
+			mui.plusReady(function () {
+				var uid = state.user.uid;
+			    var ajaxData = {
+					url:'pc/getlatest_uid',
+					data:'uid='+uid+'&count=40',
+					type:'get'
+				}
+			    var contentBox = document.getElementById("content");
+				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
+					if(data.success == true){
+						if(data.comments.length != 0){
+							for(var i=0;i<data.comments.length;i++){
+								//二级评论信息
+								var username = data.comments[i].username;
+								var pcid = data.comments[i].pcid;
+								var content = data.comments[i].content;
+								var avatar = data.comments[i].avatar;
+								var stat = data.comments[i].stat;
+								var like_count = data.comments[i].like_count;
+								var time = data.comments[i].create_date;
+								//文章信息
+								var article = data.comments[i].article;
+								var artaid =article.aid;
+								var artbg = article.bg;
+								var artcontent = article.content;
+								var pc = data.comments[i].pc || null;
+								if(pc){
+									//有一级和二级评论（一级评论信息）
+									var pccontent = pc.content;
+									var pcusername = pc.username;
+									contentBox.innerHTML +='<div class="commentBox">'+
+												'<div class="commentHeader">'+
+													'<div class="commentAvatar"></div>'+
+													'<div class="commentTitle">'+username+'</div>'+
+													'<div class="commentTime">'+time+'</div>'+
+													'<div class="returnSend">回复</div></div>'+
+												'<div class="comment_body second">'+
+													'回复<span class="body-child">@'+pcusername+'：</span>'+content+'</div>'+
+												'<div class="comment_body">'+
+													'<span class="body-child">@'+pcusername+'：</span>'+pccontent+'</div>'+
+												'<div class="body_Child">'+
+													'<div class="childImg"></div>'+
+													'<div class="childbody mui-ellipsis-3">'+artcontent+'</div>'+
+												'</div>'+
+											'</div>';
+								}else{
+									//只有一级评论
+								contentBox.innerHTML += '<div class="commentBox">'+
+															'<div class="commentHeader">'+
+																'<div class="commentAvatar"></div>'+
+																'<div class="commentTitle">'+username+'</div>'+
+																'<div class="commentTime"></div>'+
+																'<div class="returnSend">回复</div>'+
+															'</div>'+
+															'<div class="comment_body">'+content+'</div>'+
+															'<div class="body_Child">'+
+																'<div class="childImg"></div>'+
+																'<div class="childbody mui-ellipsis-3">'+artcontent+'</div>'+
+															'</div>'+
+														'</div>';
+								}
+							}
+						}else{
+							//没有评论
+							
+						}
+					}else{
+						plus.nativeUI.toast('更新失败，请稍后再试！')
+					}
+				});	
+			})
 		</script>
 	</body>
 

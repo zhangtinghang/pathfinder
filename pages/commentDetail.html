@@ -11,9 +11,6 @@
 		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
 		<link rel="stylesheet" href="../css/style.css" />
 		<style>
-			.content {
-				
-			}
 			
 			.commentBox {
 				width: 100%;
@@ -103,7 +100,7 @@
 
 	<body class="body_bg">
 		<header class="headerNav" id="header">
-			<img src="../image/return.png" />
+			<img class="mui-action-back" src="../image/return.png" />
 		</header>
 		<div class="content">
 			<div class="commentBox">
@@ -111,31 +108,34 @@
 					<div class="commentAvatar">
 
 					</div>
-					<div class="commentTitle">
-						相逢一笑
+					<div class="commentTitle" id="commentTitle">
+						
 					</div>
-					<div class="commentTime">
-						今天10：58
+					<div class="commentTime" id="commentTime">
+						
 					</div>
 				</div>
-				<div class="comment_body">
-					正在跟一客户谈生意，突然看见一初中学霸同学，现在居然在给人当保安，我感慨着世态炎凉，生活所迫的他竟沦落到这个地步。
+				<div class="comment_body" id="comment_body">
+					
 				</div>
 				<div class="comment_btn">
 					<div class="btn_box">
 						<img src="../image/comment/icon-comment.png" />
-						<span>2</span>
+						<span id="commentNum1"></span>
 					</div>
 					<div class="btn_box">
 						<img src="../image/comment/icon-dianzan.png" />
-						<span>2</span>
+						<span id="commentGood"></span>
 					</div>
 				</div>
 			</div>
-			<div class="comment_hr">
-				回复评论（2）
+			<div class="comment_hr" id="commentNum2">
+				
 			</div>
-			<div class="commentBox">
+			<div id="contentBox">
+				
+			</div>
+			<!--<div class="commentBox">
 				<div class="commentHeader">
 					<div class="commentAvatar">
 						
@@ -160,7 +160,7 @@
 						<span>2</span>
 					</div>
 				</div>
-			</div>
+			</div>-->
 		</div>
 		<div id="popover" class="mui-popover">
 			<div class="popover_body">
@@ -169,8 +169,84 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/ajax.config.js" ></script>
+		<script type="text/javascript" src="../js/ajax.js" ></script>
 		<script type="text/javascript">
 			mui.init();
+			mui.plusReady(function () {
+				//监听自定义事件，获取新闻详情
+			document.addEventListener('get_detail', function(event) {
+			    var pcid =event.detail.pcid;
+				var username =event.detail.username;
+				var content =event.detail.content;
+				var avatar = event.detail.avatar;
+				var stat =event.detail.stat;
+				var like_count =event.detail.like_count;
+				var time =event.detail.time;
+				
+				var oc = {
+					commentTitle:document.getElementById('commentTitle'),
+					commentTime:document.getElementById('commentTime'),
+					comment_body:document.getElementById('comment_body'),
+					commentNum1:document.getElementById('commentNum1'),
+					commentGood:document.getElementById('commentGood'),
+					commentNum2:document.getElementById('commentNum2')
+				}
+				oc.commentTitle.innerHTML = username;
+				oc.commentTime.innerHTML = time;
+				oc.comment_body.innerHTML = content;
+				oc.commentGood.innerHTML = like_count;
+				oc.commentNum1.innerHTML = stat;
+				oc.commentNum2.innerHTML = '回复评论（'+stat+'）';
+
+			    var ajaxData = {
+					url:'sc/getlatest',
+					data:'pcid='+pcid+'&count=20',
+					type:'get'
+				}
+			    var contentBox = document.getElementById("contentBox");
+				ajax(ajaxData, function(data) {
+					if(data.success == true){
+						if(data.secondary_comments.length != 0){
+							for(var i=0;i<data.secondary_comments.length;i++){
+								var username = data.secondary_comments[i].username;
+								console.log(username)
+								var pcid = data.secondary_comments[i].pcid;
+								var content = data.secondary_comments[i].content;
+								var avatar = data.secondary_comments[i].avatar;
+								var stat = data.secondary_comments[i].stat;
+								var like_count = data.secondary_comments[i].like_count;
+								var time = data.secondary_comments[i].create_date;
+								contentBox.innerHTML += '<div class="commentBox">'+
+										'<div class="commentHeader">'+
+											'<div class="commentAvatar"></div>'+
+											'<div class="commentTitle">'+username+'</div>'+
+											'<div class="commentTime">'+time+'</div></div>'+
+										'<div class="comment_body">'+content+'</div>'+
+										'<div class="comment_btn">'+
+											'<div class="btn_box secendcomment" data-pcid="'+pcid+'" data-content="'+content+'" data-avatar="'+avatar+'" data-stat="'+stat+'" data-like_count="'+like_count+'" data-time="'+time+'"  data-username="'+username+'">'+
+												'<img src="../image/comment/icon-comment.png" />'+
+												'<span>'+stat+'</span>'+
+											'</div>'+
+											'<div class="btn_box">'+
+												'<img src="../image/comment/icon-dianzan.png" />'+
+												'<span>'+like_count+'</span>'+
+											'</div>'+
+										'</div>'+
+								'</div>';
+							}
+						}else{
+							//没有评论
+							
+						}
+					}else{
+						plus.nativeUI.toast('更新失败，请稍后再试！')
+					}
+				});
+			});
+			    
+					
+			})
 		</script>
 	</body>
 

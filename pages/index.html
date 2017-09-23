@@ -61,27 +61,69 @@
 	<body>
 		<div class="listBox  body_bg">
 			<ul class="listBox_ul">
-				<li>
+				<li class="boxlist" data-list = "main">
 					<img src="../image/index/main-btn-chat.png"/>
 					<div class="title">闲聊</div>
 				</li>
-				<li>
+				<li class="boxlist" data-list = "editor">
 					<img src="../image/index/main-btn-quiz.png"/>
-					<div class="title">提问</div>
+					<a href="editor.html"><div class="title">提问</div></a>
 				</li>
-				<li>
+				<li class="boxlist" data-list = "">
 					<img src="../image/index/main-btn-topic.png"/>
-					<div class="title">话题</div>
+					<a href="cardDetail.html"><div class="title">话题</div></a>
 				</li>
-				<li>
+				<li class="boxlist" data-list = "">
 					<img src="../image/index/main-btn-date.png"/>
 					<div class="title">闲聊</div>
 				</li>
 			</ul>
 		</div>
 		
-		<div class="setbtn">
+		<div class="setbtn" id="setBtn">
 			<img src="../image/index/main-btn-set.png" />
 		</div>
+		
+		<script type="text/javascript" src="../js/mui.min.js" ></script>
+		<script type="text/javascript">
+			//各个分支页面跳转
+			mui('.listBox_ul').on('tap', '.boxlist', function() {
+				var data = this.getAttribute('data-list');
+				mui.openWindow({
+					url: data + '.html',
+					id: data,
+					preload: true,
+					show: {
+						aniShow: 'pop-in'
+					},
+					styles: {
+						popGesture: 'hide',
+						bounce: 'vertical'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			});
+			
+			//跳转个人设置界面
+			document.getElementById("setBtn").addEventListener('tap',function(){
+				mui.openWindow({
+					url: 'personal.html',
+					id: 'personal',
+					preload: true,
+					show: {
+						aniShow: 'pop-in'
+					},
+					styles: {
+						popGesture: 'hide',
+						bounce:'vertical'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			})
+		</script>
 	</body>
 </html>

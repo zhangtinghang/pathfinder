@@ -11,106 +11,248 @@
 		<script type="text/javascript" src="../js/zoom/flexible.js"></script>
 		<link rel="stylesheet" href="../css/style.css" />
 		<style>
-			.avatar_box{
+			.avatar_box {
 				align-items: center;
 				justify-content: center;
 				text-align: center;
-				
+				z-index: -1;
 			}
-			.content_avatar{
-				width:3.166666rem;
-				height:4.25rem;				
+			
+			.content_avatar {
+				width: 3.166666rem;
+				height: 4.25rem;
 				margin: 0 auto;
 				margin-top: 0.977777rem;
+				z-index: -1;
 			}
-			.content_avatar img{
+			
+			.content_avatar img {
 				width: 100%;
 				height: 100%;
 			}
-			.bodyStar{
-				border-radius:10px;
-				background-color: rgba(255,114,107,0.06);
+			
+			.bodyStar {
+				border-radius: 10px;
+				background-color: rgba(255, 114, 107, 0.06);
 				padding-bottom: 0.416666rem;
 				width: 85%;
 				margin: 0 auto;
+				transform-style: preserve-3d;
+				z-index: 9;
+				/*为 3D 转换元素定义透视视图。rotateX旋转X*/
+				transform: perspective(800px) rotateX(0deg) rotateY(0deg);
 			}
-			.starContent{
+			
+			.starContent {
 				width: 90%;
 				margin: 0 auto;
-				background-color: rgba(255,114,107,0.2);
+				background-color: rgba(255, 114, 107, 0.2);
 				padding: 10px 5%;
 				margin-top: -6px;
-				border-radius:10px;
+				border-radius: 10px;
+				z-index: 9;
 			}
-			.contentHead{
+			
+			.contentHead {
 				text-align: center;
 				font-size: 0.527777rem;
-				color: rgba(255,255,255,1);
+				color: rgba(255, 255, 255, 1);
 				position: relative;
+				z-index: 99;
 			}
-			.contentHead_avatar{
+			
+			.contentHead h3 {
+				z-index: -1;
+			}
+			
+			.contentHead_avatar {
 				position: absolute;
 				top: 0;
 				right: 0;
 				width: 0.722222rem;
 				height: 0.611111rem;
+				z-index: 99;
 			}
 			
-			.time{
-				color: rgba(255,255,255,1);
+			.time {
+				color: rgba(255, 255, 255, 1);
 				font-size: 0.388888rem;
 			}
-			.contentDetail{
-				color: rgba(2552,255,255,1);
+			
+			.contentDetail {
+				color: rgba(2552, 255, 255, 1);
 				font-size: 0.444444rem;
 				padding: 10px 0;
 			}
-			.detailNickname{
-				color: rgba(109,141,244,1);
+			
+			.detailNickname {
+				color: rgba(109, 141, 244, 1);
+			}
+			/*动画效果*/
+			
+			.animated {
+				animation: mydialog 3s;
+				-webkit-animation: mydialog 3s;
+				/*Safari 和 Chrome */
+				transform: rotateY(0deg);
+				-webkit-transform: rotateY(0deg);
+			}
+			
+			@keyframes mydialog {
+				0% {
+					transform: rotateY(0deg);
+				}
+				100% {
+					transform: rotateY(360deg);
+				}
+			}
+			
+			@-webkit-keyframes mydialog {
+				0% {
+					-webkit-transform: rotateY(0deg);
+				}
+				100% {
+					-webkit-transform: rotateY(360deg);
+				}
+			}
+			
+			.animated1 {
+				animation: mydialog 3s;
+				-webkit-animation: mydialog1 3s;
+				/*Safari 和 Chrome */
+				transform: rotateY(0deg);
+				-webkit-transform: rotateY(0deg);
+			}
+			
+			@keyframes mydialog1 {
+				0% {
+					transform: rotateY(360deg);
+				}
+				100% {
+					transform: rotateY(0deg);
+				}
+			}
+			
+			@-webkit-keyframes mydialog1 {
+				0% {
+					-webkit-transform: rotateY(360deg);
+				}
+				100% {
+					-webkit-transform: rotateY(0deg);
+				}
 			}
 		</style>
 	</head>
 
 	<body class="body_bg">
 		<header class="headerNav" id="header">
-			<img src="../image/return.png" />
+			<img class="mui-action-back" src="../image/return.png" />
 		</header>
 		<div class="content">
 			<div class="avatar_box">
 				<div class="content_avatar">
-					<img src="../image/lookStar/star-icon.png" />	
+					<img src="../image/lookStar/star-icon.png" />
 				</div>
 			</div>
-			<div class="bodyStar">
+			<div id="bodyStar" class="bodyStar">
 				<div class="starContent">
 					<div class="contentHead">
-						<h3>用掉的星币</h3>
-						<img class="contentHead_avatar" src="../image/lookStar/star-button.png" />
+						<h3 id="contentHead-text"></h3>
+						<img id="refresh" class="contentHead_avatar" src="../image/lookStar/star-button.png" />
 					</div>
-					<div class="contentBody">
-						<div class="time">7-5</div>
-						<div class="contentDetail">
-							赠送给<span class="detailNickname">逝去</span>一个星币
-						</div>
-					</div>
-					<div class="contentBody">
-						<div class="time">7-5</div>
-						<div class="contentDetail">
-							赠送给<span class="detailNickname">逝去</span>一个星币
-						</div>
-					</div>
-					<div class="contentBody">
-						<div class="time">7-5</div>
-						<div class="contentDetail">
-							赠送给<span class="detailNickname">逝去</span>一个星币
-						</div>
+					<div class="contentBody" id="starContent">
+
 					</div>
 				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/ajax.js"></script>
+		<script type="text/javascript" src="../login/JS/app.js"></script>
+		<script type="text/javascript" src="../js/ajax.config.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			mui.plusReady(function() {
+				var state = app.getState();
+				var refresh = document.getElementById("refresh");
+				var bodyStar = document.getElementById("bodyStar");
+				var starContent = document.getElementById("starContent");
+				var contentHead_text = document.getElementById("contentHead-text");
+				var refreshFlag = false;
+				//初始化获取获得的星币数量
+				addStar();
+				refresh.addEventListener('tap', function() {
+					if(!refreshFlag) {
+						bodyStar.classList.add('animated');
+						bodyStar.classList.remove('animated1');
+						refreshFlag = !refreshFlag;
+						addStar();
+					} else {
+						lessStar();
+						bodyStar.classList.remove('animated');
+						bodyStar.classList.add('animated1');
+						refreshFlag = !refreshFlag;
+					}
+				})
+				//获取增量并且更新
+				function addStar() {
+					UpdataAddStar(state, function(data) {
+						contentHead_text.innerHTML = '用掉的星币';
+						if(data.success == true) {
+							if(data.histories.length != 0) {
+								for(var i = 0; i < data.histories.length; i++) {
+									var count = data.histories[i].history;
+									var username = data.histories[i].username;
+									var uid = data.histories[i].uid;
+									var time = data.histories[i].create_date;
+									starContent.innerHTML += '<div class="contentBody">' +
+										'<div class="time">' + time + '</div>' +
+										'<div class="contentDetail">' +
+										'赠送给<span class="detailNickname">' + username + '</span>' + count + '个星币' +
+										'</div>' +
+										'</div>';
+								}
+							} else {
+								//没有数据
+								starContent.innerHTML = '<div class="contentDetail">暂无赠送记录</div>';
+							}
+						} else {
+							plus.nativeUI.toast('查询数据失败！');
+							starContent.innerHTML = '<div class="contentDetail">暂无赠送记录</div>';
+						}
+					})
+				}
+
+				//获取减量并且更新
+				function lessStar() {
+					UpdataLessStar(state, function(data) {
+						contentHead_text.innerHTML = '获得的星币';
+						if(data.success == true) {
+							if(data.histories.length != 0) {
+								for(var i = 0; i < data.histories.length; i++) {
+									var count = data.histories[i].history;
+									var username = data.histories[i].username;
+									var uid = data.histories[i].uid;
+									var time = data.histories[i].create_date;
+									starContent.innerHTML += '<div class="contentBody">' +
+										'<div class="time">' + time + '</div>' +
+										'<div class="contentDetail">' +
+										'获取到<span class="detailNickname">' + username + '</span>' + count + '个星币' +
+										'</div>' +
+										'</div>';
+								}
+							} else {
+								//没有数据
+								starContent.innerHTML = '<div class="contentDetail">暂无获取记录</div>';
+							}
+						} else {
+							plus.nativeUI.toast('查询数据失败！');
+							starContent.innerHTML = '<div class="contentDetail">暂无获取记录</div>';
+						}
+					})
+				}
+
+			})
 		</script>
 	</body>
 
