@@ -21,7 +21,7 @@
 				overflow: hidden;
 			}
 			
-			.mui-content {
+			.mui-content { 
 				overflow: hidden;
 			}
 			
@@ -49,7 +49,8 @@
 			
 			.listBox_li{
 				position:relative;
-				border-radius:15px 15px 0 0 !important;
+				border-radius:5px 5px 0 0 !important;
+				z-index: 1;
 			}
 			
 			.card_avatar{
@@ -64,6 +65,8 @@
 				align-items: center;
 				color: #FFFFFF;
 				font-size: 0.388888rem;
+				border-radius:60px;
+				overflow: hidden;
 			}
 			
 			.card_avatar img{
@@ -116,18 +119,12 @@
 			<div class="listBox" id="content">
 				<ul class="listBox_ul" id="contentList">
 					<!--<li class="listBox_li">
-						<div class="card_avatar"><img :src="item.avatar" /></div>
+						<div class="card_avatar"><img src="../image/classify-first-head.png" /></div>
 						<div class="card_title">{{item.title}}</div>
 						<div class="card_content">{{item.content}}</div>
-						<div class="card_img"><img src="../image/main/0.jpg"/></div>
-					</li> -->
+						<div class="card_img"><img src="../image/main/0.png"/></div>
+					</li>-->		
 				</ul>
-			</div>
-			<div id="popover" class="mui-popover">
-			<div class="popover_body">
-				<div class="body_box">回复</div>
-				<div class="body_box">举报</div>
-			</div>
 			</div>
 		</div>
 		<script type="text/javascript" src="../js/mui.min.js"></script>
@@ -152,6 +149,7 @@
 					release: true //默认为false，不监听
 				}
 			});
+			
 			//获取数据
 			var ajaxData = {
 					url: 'article/getlatest',
@@ -164,21 +162,28 @@
 					console.log(JSON.stringify(data))
 					if(data.success == true){
 						var rsp = data.articles;
-						var imgUrl = '../image/main/';
-						var imgUrlNet = 'http://39.108.53.121/';
 						for(var i=0;i<rsp.length;i++){
 							var avatar = rsp[i].avatar;
+							
+							if(!avatar){
+								avatar = '../image/head.png';
+							}else{
+								if(avatar.length<10){
+									var imgUrl = '../image/main/';
+									avatar = imgUrl+avatar;
+								}else{
+									var imgUrlNet = 'http://39.108.53.121/';
+									avatar = imgUrlNet+avatar;
+								}
+							}			
+						
 							var title = rsp[i].title;
 							var content = rsp[i].content;
 							var cover = rsp[i].bg || 0;  
-							if(cover.length > 10){
-								//网络图片
-								cover = imgUrlNet+cover;
-							}else if(0 < cover.length < 10){
+							if(cover == 0){
+								var imgUrl = '../image/main/'; 
 								//定义的图片
-								cover = imgUrl+cover+'.jpg';
-							}else{
-								cover = imgUrl+'0.jpg';
+								cover = imgUrl+'0.png';
 							}
 							var aid = rsp[i].aid;
 							var nickname = rsp[i].nickname;
@@ -192,8 +197,11 @@
 					//输出匹配元素数量
 					var oLs = $('#content ul li').size();
 					var yDeg = 0;
-					for(var i = oLs - 1; i >= 0; i--) {
-						yDeg = -i * 110;
+					for(var i = oLs; i >= 0; i--) {
+						yDeg = -i * 200;
+						if(yDeg < -2*200){
+							yDeg = -200*2;
+						}
 						$('#content ul li').eq(i).css({
 							'transform': 'translateY(' + yDeg + 'px) translateZ(' + yDeg + 'px)'
 						});
@@ -221,7 +229,7 @@
 				var content = this.querySelector(".card_content").innerHTML;
 				var avatar = this.querySelector(".item_avatar").getAttribute("src");
 				var cover = this.querySelector(".item_cover").getAttribute("src");
-//				open_detail(aid,nickname,title,content,avatar,cover);
+				open_detail(aid,nickname,title,content,avatar,cover);
 			});
 			
 			function open_detail(aid,nickname,title,content,avatar,cover) {
@@ -232,7 +240,7 @@
 					}, 100);
 				}
 				//触发子窗口变更新闻详情
-				mui.fire(webview_detail, 'get_detail', {
+				mui.fire(webview_detail, 'get_detail', { 
 					aid: aid,
 					nickname:nickname, 
 					title:title,

@@ -24,11 +24,19 @@
 				margin: 0 auto;
 				margin-top: 0.977777rem;
 				z-index: -1;
+				position:relative;
+				background-image: url(../image/lookStar/star-icon.png);
+				background-size:100% 100%;
+				display: flex;
+				justify-content:center;
+				align-items:center;
+				
 			}
 			
-			.content_avatar img {
-				width: 100%;
-				height: 100%;
+			.starNum{
+				font-size:0.555555rem;
+				color:rgba(249,71,79,1);
+				margin-top:-0.977777rem;
 			}
 			
 			.bodyStar {
@@ -151,7 +159,7 @@
 		<div class="content">
 			<div class="avatar_box">
 				<div class="content_avatar">
-					<img src="../image/lookStar/star-icon.png" />
+					<div class="starNum" id="starNum"></div>
 				</div>
 			</div>
 			<div id="bodyStar" class="bodyStar">
@@ -179,8 +187,11 @@
 				var starContent = document.getElementById("starContent");
 				var contentHead_text = document.getElementById("contentHead-text");
 				var refreshFlag = false;
+				var starNum = document.getElementById("starNum");
 				//初始化获取获得的星币数量
-				addStar();
+				contentHead_text.innerHTML = '用掉的星币';
+				starContent.innerHTML = '<div class="contentDetail">暂未查询到记录</div>';
+				starNum.innerHTML = state.user.money;
 				refresh.addEventListener('tap', function() {
 					if(!refreshFlag) {
 						bodyStar.classList.add('animated');
@@ -205,6 +216,7 @@
 									var username = data.histories[i].username;
 									var uid = data.histories[i].uid;
 									var time = data.histories[i].create_date;
+									starNmu.innerHTML = 
 									starContent.innerHTML += '<div class="contentBody">' +
 										'<div class="time">' + time + '</div>' +
 										'<div class="contentDetail">' +

@@ -120,12 +120,17 @@
 				<div class="mui-slider">
 				  <div class="mui-slider-group mui-slider-loop" id="slider-box">
 				    <!--支持循环，需要重复图片节点-->
-				    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../image/main/4.jpg" /></a></div>
-				    <div class="mui-slider-item"><a href="#"><img src="../image/main/0.jpg" /></a></div>
-				    <div class="mui-slider-item"><a href="#"><img src="../image/main/1.jpg" /></a></div>
-				    <div class="mui-slider-item"><a href="#"><img src="../image/main/2.jpg" /></a></div>
+				    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../image/main/8.png" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="../image/main/0.png" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="../image/main/1.png" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="../image/main/2.png" /></a></div>
 				    <div class="mui-slider-item" id="slider-item-network"><a href="#"><img id="item-network-img" src="" /></a></div>
-				    <div class="mui-slider-item"><a href="#"><img src="../image/main/4.jpg" /></a></div>
+				    <div class="mui-slider-item"><a href="#"><img src="../image/main/4.png" /></a></div>
+				     <div class="mui-slider-item"><a href="#"><img src="../image/main/5.png" /></a></div>
+				      <div class="mui-slider-item"><a href="#"><img src="../image/main/6.png" /></a></div>
+				       <div class="mui-slider-item"><a href="#"><img src="../image/main/7.png" /></a></div>
+				        <div class="mui-slider-item"><a href="#"><img src="../image/main/8.png" /></a></div>
+				        
 				    <!--支持循环，需要重复图片节点-->
 				    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="../image/main/0.jpg" /></a></div>
 				  </div>
@@ -272,7 +277,7 @@
 			//相册选择
 			function picture(){
 				var size = 0;
-					plus.gallery.pick( function(path){
+					plus.gallery.pick(function(path){
 						//提取出格式
 						var name = path.substr(path.lastIndexOf('/') + 1);
 						//图片压缩
@@ -345,13 +350,14 @@
 				if(flagindex == 3){
 					//走图片上传
 					var bg = sliderBox.getAttribute('data-url');
+					var imgUrlNet = 'http://39.108.53.121/';
 					var ajaxData = {
 						url: 'article/announce',
 						data: {
 							token: state.token,
 							title:titleInput.value,
 							content:content_body_text.value,
-							bg:bg,
+							bg:imgUrlNet+bg,
 							type:0
 						},
 						type: 'post'
@@ -365,6 +371,7 @@
 						}
 					});
 				}else{
+					var imgUrl = '../image/main/';
 					//走系统内置
 				var ajaxData = {
 						url: 'article/announce',
@@ -372,7 +379,7 @@
 							token: state.token,
 							title:titleInput.value,
 							content:content_body_text.value,
-							bg:flagindex,
+							bg:imgUrl+flagindex+'.png',
 							type:0
 						},
 						type: 'post'

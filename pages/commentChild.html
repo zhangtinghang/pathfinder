@@ -32,8 +32,13 @@
 				height: 1.666666rem;
 				width: 1.666666rem;
 				background-color: #007AFF;
-				border-radius: 45px;
+				border-radius: 60px;
+				overflow:hidden;
 				margin: 5% 0;
+			}
+			.commentAvatar img{
+				width: 100%;
+				height:100%;
 			}
 			
 			.commentTitle {
@@ -73,6 +78,10 @@
 				width: 3.055555rem;
 				height:2.305555rem;
 				background-color: #007AFF;
+			}
+			.childImg img{
+				width:100%;
+				height:100%;
 			}
 			.childbody{
 				width: 70%;
@@ -150,50 +159,46 @@
 								var pcid = data.comments[i].pcid;
 								var content = data.comments[i].content;
 								var avatar = data.comments[i].avatar;
+								if(!avatar){
+										avatar = '../image/head.png';
+									}else{
+										if(avatar.length<10){
+											var imgUrl = '../image/main/';
+											avatar = imgUrl+avatar;
+										}else{
+											var imgUrlNet = 'http://39.108.53.121/';
+											avatar = imgUrlNet+avatar;
+										}
+									}
 								var stat = data.comments[i].stat;
 								var like_count = data.comments[i].like_count;
 								var time = data.comments[i].create_date;
 								//文章信息
 								var article = data.comments[i].article;
 								var artaid =article.aid;
-								var artbg = article.bg;
+								var artbg = article.bg || 0;
+								if(artbg == 0){
+									var imgUrl = '../image/main/'; 
+									//定义的图片
+									artbg = imgUrl+'0.png';
+								}
 								var artcontent = article.content;
 								var pc = data.comments[i].pc || null;
-								if(pc){
-									//有一级和二级评论（一级评论信息）
-									var pccontent = pc.content;
-									var pcusername = pc.username;
-									contentBox.innerHTML +='<div class="commentBox">'+
-												'<div class="commentHeader">'+
-													'<div class="commentAvatar"></div>'+
-													'<div class="commentTitle">'+username+'</div>'+
-													'<div class="commentTime">'+time+'</div>'+
-													'<div class="returnSend">回复</div></div>'+
-												'<div class="comment_body second">'+
-													'回复<span class="body-child">@'+pcusername+'：</span>'+content+'</div>'+
-												'<div class="comment_body">'+
-													'<span class="body-child">@'+pcusername+'：</span>'+pccontent+'</div>'+
-												'<div class="body_Child">'+
-													'<div class="childImg"></div>'+
-													'<div class="childbody mui-ellipsis-3">'+artcontent+'</div>'+
-												'</div>'+
-											'</div>';
-								}else{
-									//只有一级评论
-								contentBox.innerHTML += '<div class="commentBox">'+
-															'<div class="commentHeader">'+
-																'<div class="commentAvatar"></div>'+
-																'<div class="commentTitle">'+username+'</div>'+
-																'<div class="commentTime"></div>'+
-																'<div class="returnSend">回复</div>'+
-															'</div>'+
-															'<div class="comment_body">'+content+'</div>'+
-															'<div class="body_Child">'+
-																'<div class="childImg"></div>'+
-																'<div class="childbody mui-ellipsis-3">'+artcontent+'</div>'+
-															'</div>'+
-														'</div>';
-								}
+								
+								//只有一级评论
+							contentBox.innerHTML += '<div class="commentBox">'+
+										'<div class="commentHeader">'+
+											'<div class="commentAvatar"><img src = "'+avatar+'" /></div>'+
+											'<div class="commentTitle">'+username+'</div>'+
+											'<div class="commentTime"></div>'+
+											'<div class="returnSend">回复</div>'+
+										'</div>'+
+										'<div class="comment_body">'+content+'</div>'+
+										'<div class="body_Child">'+
+											'<div class="childImg"><img src = "'+artbg+'" /></div>'+
+											'<div class="childbody mui-ellipsis-3">'+artcontent+'</div>'+
+										'</div>'+
+									'</div>';
 							}
 						}else{
 							//没有评论

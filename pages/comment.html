@@ -12,7 +12,6 @@
 		<link rel="stylesheet" href="../css/style.css" />
 		<style>
 			.content {
-				background-color: rgba(255, 255, 255, 1);
 				margin-bottom: 1.8555555rem;
 			}
 			
@@ -20,6 +19,7 @@
 				width: 100%;
 				padding: 0 5%;
 				border-bottom: 1px solid rgba(0, 0, 0, 1);
+				background:rgba(255,255,255,1);
 			}
 			
 			.commentHeader {
@@ -150,10 +150,6 @@
 			<img class="mui-action-back" src="../image/return.png" />
 		</header>
 
-		<div class="comment_text" id="comment_text_box">
-			<textarea id="textarea" placeholder="我有话要说..."></textarea>
-			<div id="sendbtn">发送</div>
-		</div>
 		<div class="content" id="content">
 			<!--<div class="commentBox">
 				<div class="commentHeader">
@@ -181,7 +177,11 @@
 					</div>
 				</div>
 			</div>-->
-
+		</div>
+		
+		<div class="comment_text" id="comment_text_box">
+			<textarea id="textarea" placeholder="我有话要说..."></textarea>
+			<div id="sendbtn">发送</div>
 		</div>
 		<div id="popover" class="mui-popover">
 			<div class="popover_body">
@@ -199,7 +199,7 @@
 			mui.plusReady(function () {
 			    var self = plus.webview.currentWebview();
 			    var aid = self.aid;
-			   var state = app.getState();
+			   	var state = app.getState();
 			    var contentBox = document.getElementById("content");
 			    //预加载详情页
 				webview_detail = mui.preload({
@@ -225,6 +225,7 @@
 			   
 			    contentBox.innerHTML = '';
 				ajax(ajaxData, function(data) {
+					console.log(JSON.stringify(data))
 					if(data.success == true){
 						if(data.comments.length != 0){
 							for(var i=0;i<data.comments.length;i++){

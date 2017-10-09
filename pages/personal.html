@@ -26,7 +26,8 @@
 				width: 2.777777rem;
 				margin: 0.577777rem auto;
 				margin-top: 0.977777rem;
-				border-radius: 45px;
+				border-radius:60px;
+				overflow: hidden;
 			}
 			
 			.content_avatar img {
@@ -167,30 +168,44 @@
 				});
 				//获取数据 绑定		
 				var state = app.getState();
-				console.log(JSON.stringify(state))
+				console.log('前'+JSON.stringify(state))
 				var headerObj = {
 					avatar: document.getElementById("head-avatar"),
 					nickname: document.getElementById("head-title")
 				}
 				if(state.user.avatar) {
-					headerObj.avatar.src = state.user.avatar;
+					var imgUrl = '../image/main/';
+					var imgUrlNet = 'http://39.108.53.121/';
+					if(state.user.avatar.length > 10){
+						headerObj.avatar.src = imgUrlNet+state.user.avatar;
+					}else{
+						headerObj.avatar.src = imgUrl+state.user.avatar;
+					}
+					
 				} else {
-					headerObj.avatar.src = '../image/personal/set-head.png';
+					headerObj.avatar.src = '../image/head.png';
 				}
 				if(state.user.nickname) {
 					headerObj.nickname.innerHTML = state.user.nickname;
 				} else {
 					headerObj.nickname.innerHTML = 'none';
 				}
-
+ 
 				//监听自定义事件，刷新页面
 				document.addEventListener('changPersonal', function(event) {
 					//触发更新
 					var newState = app.getState();
+					console.log('后'+JSON.stringify(newState))
 					if(newState.user.avatar) {
-						headerObj.avatar.src = newState.user.avatar;
+						var imgUrl = '../image/main/';
+						var imgUrlNet = 'http://39.108.53.121/';
+						if(newState.user.avatar.length > 10){
+							headerObj.avatar.src = imgUrlNet+newState.user.avatar;
+						}else{
+							headerObj.avatar.src = imgUrl+newState.user.avatar;
+						}				
 					} else {
-						headerObj.avatar.src = '../image/personal/set-head.png';
+						headerObj.avatar.src = '../image/head.png';
 					}
 					if(newState.user.nickname) {
 						headerObj.nickname.innerHTML = newState.user.nickname;
